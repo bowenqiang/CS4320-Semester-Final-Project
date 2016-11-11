@@ -1,41 +1,10 @@
-<?php 
-#Start Session
-session_start();
-#Database Connection:
-include('config/connection.php');
-
-if($_POST) {
-	$query="SELECT * FROM user_info WHERE AccountEmail='$_POST[email]' AND Hashword = '$_POST[password]'";
-	//$query="SELECT * FROM users WHERE email='$_POST[email]' AND password = SHA1('$_POST[password]')";
-	$result=mysqli_query($dbc, $query);
-
-	if(mysqli_num_rows($result) == 1) {
-		$data=mysqli_fetch_assoc($result);
-		if($data['isActive'] == 1) {
-			$_SESSION['username'] = $_POST['email'];
-			if($data['Category'] == 'admin' ) {
-				$_SESSION['category'] = 'admin';
-				header('Location:admin/index.php');
-			} else {
-				$_SESSION['category'] = 'other';
-				header('Location: index.php');
-			}
-		}		
-	}
-}
-?>
-							
-
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Login</title>
-		<meta name="viewport" content="width=device-width,initial-scale=1.0">
-		<?php include('config/css.php'); ?>
-		<?php include('config/js.php'); ?>		
+<html lang="en">
+<head>
+
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Software Engineering</title>
+  <title>Contribute</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -62,9 +31,10 @@ if($_POST) {
 
 <body class='indigo lighten-5'>
   <nav class="indigo" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Software Engineering</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Contribute</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#">Git Hub</a></li>
+        <li><a href="#">Logout</a></li>
 <!--         <li><input id="search"><i class="material-icons">search</i></li> -->
       </ul>
 
@@ -78,32 +48,53 @@ if($_POST) {
     <div class="white z-depth-1 container" style='padding: 1% 1% 1% 1%;'>
       <br><br>
       <div class="row">
-      <?php
-								if($_POST) {
-									echo $_POST['email'];
-									echo '<br>';
-									echo $_POST['password'];
-								}
-							?>
-      		<div class="col s4">
-      			<h3>User Login</h3>
-      		</div>
 		  <div class="input-field col s12">
-			  <input id="email" type="text" class="validate">
-			  <label for="email" name="email">Username</label>
+		  	<h3>File Upload List</h3>
+			  
+			  <table class="highlight">
+        <thead>
+          <tr>
+              <th style='width:65%' data-field="data">Name</th>
+              <th style='width:10%' data-field="date">Size</th>
+              <th style='width:25%' data-field="contrib"></th>
+          </tr>
+        </thead>
+
+        <tbody style='padding: 50px 30px 50px 80px;'>
+          <tr>
+            <td style='margin-left:2px'><b>Bio Info</b></td>
+            <td>1 kb</td>
+            <td>
+            	<a class="btn-floating btn-large waves-effect waves-light teal lighten-2"><i class="material-icons">mode_edit</i></a>
+              <a class="btn-floating btn-large waves-effect waves-light teal lighten-1"><i class="material-icons">delete</i></a>
+              </td>
+          </tr>
+          <tr>
+            <td><b>Job Info</b></td>
+            <td>1 kb</td>
+            <td><a class="btn-floating btn-large waves-effect waves-light teal lighten-2"><i class="material-icons">mode_edit</i></a>
+              <a class="btn-floating btn-large waves-effect waves-light teal lighten-1"><i class="material-icons">delete</i></a></td>
+          </tr>
+          <tr>
+            <td><b>Medical Info</b></td>
+            <td>2 kb</td>
+            <td><a class="btn-floating btn-large waves-effect waves-light teal lighten-2"><i class="material-icons">mode_edit</i></a>
+              <a class="btn-floating btn-large waves-effect waves-light teal lighten-1"><i class="material-icons">delete</i></a></td>
+          </tr>
+        </tbody>
+      </table>
+      <a class="btn-floating btn-large waves-effect waves-light teal lighten-2"><i class="material-icons">add</i></a>
           </div>
-          <div class="input-field col s12">
-          		<input id="password" type="text" class="validate">
-			  <label for="password" type="password" name="password">Password</label>
-		</div>
-		<div class="col s4">
-			<a class="waves-effect waves-light btn">Login</a>
-			<a class="waves-effect waves-light btn">Register</a>
-		</div>
     </div>
       <div class="row center">
       </div>
       <br><br>
+      
+	<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large yellow accent-4">
+      <i class="large material-icons">done</i>
+    </a>
+  </div>
     </div>
   </div>
 
