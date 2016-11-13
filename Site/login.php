@@ -61,6 +61,9 @@ if($_POST) {
  -->
 
 <body class='indigo lighten-5'>
+
+		<?php //include(D_TEMPLATE.'/navigation.php'); ?>
+
   <nav class="indigo" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Software Engineering</a>
       <ul class="right hide-on-med-and-down">
@@ -88,6 +91,8 @@ if($_POST) {
       		<div class="col s4">
       			<h3>User Login</h3>
       		</div>
+      		
+		<form action="login.php" method="post" role="form">
 		  <div class="input-field col s12">
 			  <input id="email" type="text" class="validate">
 			  <label for="email" name="email">Username</label>
@@ -97,15 +102,18 @@ if($_POST) {
 			  <label for="password" type="password" name="password">Password</label>
 		</div>
 		<div class="col s4">
-			<a class="waves-effect waves-light btn">Login</a>
-			<a class="waves-effect waves-light btn">Register</a>
+			<button type="submit" class="waves-effect waves-light btn">Login</button>
 		</div>
     </div>
+    </form>
+    
       <div class="row center">
       </div>
       <br><br>
     </div>
   </div>
+
+		<?php //include(D_TEMPLATE.'/footer.php'); ?>
 
   <footer class="page-footer indigo">
     <div class="container">

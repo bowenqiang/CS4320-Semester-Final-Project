@@ -17,7 +17,9 @@
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Software Engineering</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#">Git Hub</a></li>
-        <li><a href="#">Logout</a></li>
+				<li><a href="browseManifests.php">Browse Manifests</a></li>
+				<li><a href="login.php">login</a></li>
+				<li><a href="contribute.php">contribute</a></li>
 <!--         <li><input id="search"><i class="material-icons">search</i></li> -->
       </ul>
 
@@ -76,12 +78,16 @@
         </div>
       </div>
       <div class="row center-align" style="padding: 1%;">
-        <a class="waves-effect waves-light btn-large col s3 offset-s2">Upload Manifest</a>
-        <h4 class="col s2 valign">OR</h4>
-        <a class="waves-effect waves-light btn-large col s3">Generate Manifest</a>
+        <form method="post" action="">
+          <input type='submit' name='upload' value='Upload Manifest' class="waves-effect waves-light btn-large col s3 offset-s2">
+          <h4 class="col s2 valign">OR</h4>
+          <input type='submit' name='generate' value='Generate Manifest' class="waves-effect waves-light btn-large col s3">
+        </form>
       </div>
       <div class="row" style="padding: 1%;">
-        <a class="waves-effect waves-light btn-large col s2 offset-s9 disabled">Upload</a>
+        <form action="" method="post">
+          <input type='submit' name='submit' value='Upload' class="waves-effect waves-light btn-large col s2 offset-s9">
+        </form>
       </div>
     </div>
 
@@ -115,7 +121,17 @@
       </div>
     </div>
   </footer>
-
+  <?php
+    if (isset($_POST['upload'])) {
+      echo "<script type='text/javascript'>alert('Upload Manifest from Computer')</script>";
+    }
+    if (isset($_POST['generate'])) {
+      echo "<script type='text/javascript'>alert('fill out info for manifest')</script>";
+    }
+    if (isset($_POST['submit'])) {
+      echo "<script type='text/javascript'>alert('upload all files to server and associate with manifest')</script>";
+    }
+  ?>
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

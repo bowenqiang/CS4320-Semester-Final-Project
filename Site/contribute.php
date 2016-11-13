@@ -11,9 +11,9 @@
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
-<!-- 
+<!--
 <style>
-	
+
    /* label focus color */
    .input-field input[type=text]:focus + label {
      color: #F0F000;
@@ -34,7 +34,9 @@
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Contribute</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#">Git Hub</a></li>
-        <li><a href="#">Logout</a></li>
+				<li><a href="browseManifests.php">Browse Manifests</a></li>
+				<li><a href="addDataset.php">addDataset</a></li>
+				<li><a href="login.php">login</a></li>
 <!--         <li><input id="search"><i class="material-icons">search</i></li> -->
       </ul>
 
@@ -50,51 +52,44 @@
       <div class="row">
 		  <div class="input-field col s12">
 		  	<h3>File Upload List</h3>
-			  
+
 			  <table class="highlight">
         <thead>
           <tr>
-              <th style='width:65%' data-field="data">Name</th>
-              <th style='width:10%' data-field="date">Size</th>
-              <th style='width:25%' data-field="contrib"></th>
+              <th style='width:65%' data-field="name">Name</th>
+              <th style='width:10%' data-field="size">Size</th>
+              <th style='width:25%' data-field="func"></th>
           </tr>
         </thead>
 
         <tbody style='padding: 50px 30px 50px 80px;'>
-          <tr>
-            <td style='margin-left:2px'><b>Bio Info</b></td>
-            <td>1 kb</td>
-            <td>
-            	<a class="btn-floating btn-large waves-effect waves-light teal lighten-2"><i class="material-icons">mode_edit</i></a>
-              <a class="btn-floating btn-large waves-effect waves-light teal lighten-1"><i class="material-icons">delete</i></a>
-              </td>
-          </tr>
-          <tr>
-            <td><b>Job Info</b></td>
-            <td>1 kb</td>
-            <td><a class="btn-floating btn-large waves-effect waves-light teal lighten-2"><i class="material-icons">mode_edit</i></a>
-              <a class="btn-floating btn-large waves-effect waves-light teal lighten-1"><i class="material-icons">delete</i></a></td>
-          </tr>
-          <tr>
-            <td><b>Medical Info</b></td>
-            <td>2 kb</td>
-            <td><a class="btn-floating btn-large waves-effect waves-light teal lighten-2"><i class="material-icons">mode_edit</i></a>
-              <a class="btn-floating btn-large waves-effect waves-light teal lighten-1"><i class="material-icons">delete</i></a></td>
-          </tr>
+          <?php
+            for ($i=0; $i < 5; $i++) {
+              echo "<tr>";
+              echo "<td> sampleFile".$i."</td>";
+              echo "<td> 1kb </td>";
+              echo "<td><form method='post' action=''><input type='submit' name='rename' value='rename'><input type='submit' name='remove' value='remove'></form></td>";
+            }
+          ?>
         </tbody>
-      </table>
-      <a class="btn-floating btn-large waves-effect waves-light teal lighten-2"><i class="material-icons">add</i></a>
-          </div>
+        </table>
+      <form method="post" action="">
+      <!-- <a class="btn-floating btn-large waves-effect waves-light teal lighten-2" name="add"><i class="material-icons">add</i></a> -->
+        <input type="submit" name="add" value="add" class="btn-floating btn-large teal lighten-2">
+      </form>
+
+    </div>
     </div>
       <div class="row center">
       </div>
       <br><br>
-      
-	<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large yellow accent-4">
-      <i class="large material-icons">done</i>
-    </a>
-  </div>
+
+    	<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <form method="post" action="">
+          <input type="submit" name="submit" value="submit" class="btn-floating btn-large yellow accent-4">
+        </form>
+      </div>
+
     </div>
   </div>
 
@@ -128,7 +123,20 @@
       </div>
     </div>
   </footer>
-
+  <?php
+    if(isset($_POST['add'])){
+      echo "<script type='text/javascript'>alert('Added File')</script>";
+    }
+    if (isset($_POST['submit'])) {
+      echo "<script type='text/javascript'>alert('Submit files for upload')</script>";
+    }
+    if (isset($_POST['rename'])) {
+      echo "<script type='text/javascript'>alert('rename selected file')</script>";
+    }
+    if (isset($_POST['remove'])) {
+      echo "<script>alert('delete from list')</script>";
+    }
+  ?>
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
