@@ -38,42 +38,50 @@ if($_POST) {
 </head>
 <body class='indigo lighten-5'>
 	<?php include(D_TEMPLATE.'/navigation.php'); ?>
+
 	<div class="section" id="index-banner">
 		<div class="white z-depth-1 container" style='padding: 1% 1% 1% 1%;'>
 		  <br><br>
-		  <div class="row">
-		  	<div class="col s4">
-		  		<h3>User Login</h3>
-
-		  	</div>
-		  		
-			<form action="login.php" method="post" role="form">
-				<div class="input-field col s12">
-					<input id="email" type="text" class="validate">
-					<label for="email" name="email">Username</label>
-		    	</div>
-		    	<div class="input-field col s12">
-		        	<input id="password" type="text" class="validate">
-					<label for="password" type="password" name="password">Password</label>
-				</div>
-				<div class="col s4">
-					<button type="submit" class="waves-effect waves-light btn">Login</button>
-				</div>
+			<div class="row">
+			  	<div class="col s4">
+			  		<h3>User Login</h3>
+			  		<!--
+			  		<?php
+					  	if($_POST) {
+							echo '<p>'.$_POST['email'].'</p>';
+							echo '<br>';
+							echo '<p>'.$_POST['password'].'</p>';
+						}else {
+							echo '<p>No Post</p>';
+						}
+					?>
+					-->
+	
+			  	</div>
+			  		
+				<form action="login.php" method="post" role="form">
+					<div class="input-field col s12 form-group">						
+						<label for="email" >AccountEmail</label>
+						<input id="email" type="text" class="validate" name="email">
+			    	</div>
+			    	<div class="input-field col s12">		        	
+						<label for="password" type="password" name="password">Password</label>
+						<input id="password" type="text" class="validate" name="password">
+					</div>
+					<div class="col s4">
+						<button type="submit" value="submit" class="waves-effect waves-light btn">Login</button>
+					</div>
+				</form>
 			</div>
-			</form>		
+					
 		  	<div class="row center">
 		  	</div>
 		  <br><br>
-		</div><!--END of white z-depth-1 container-->
-				  	<?php
-		  	if($_POST) {
-				echo '<h1>'.$_POST['email'].'</h1>';
-				echo '<br>';
-				echo '<h1>'.$_POST['password'].'/h1';
-				}
-			?>
-		
+		</div><!--END of white z-depth-1 container-->		
 	</div><!--END of section-->
+	
+
+	
 	<?php include(D_TEMPLATE.'/footer.php'); ?>
   </body>
 </html>

@@ -14,20 +14,19 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <!-- JQuery -->
 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
 <style>
 
-#wrap {
-	height:auto;
-	min-height: 100%;
-	margin:0 auto -60px;
-	padding: 0 0 60px;
-}
-
 footer {
-
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
   text-align: center;
-  height: 60px;
-}
-
 }
 </style>

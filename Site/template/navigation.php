@@ -2,6 +2,7 @@
 	<div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Software Engineering</a>
 	  <ul class="right hide-on-med-and-down">
 	    <li><a href="#">Git Hub</a></li>
+	    <li><a href="logout.php">Logout</a></li>
 	<!--         <li><input id="search"><i class="material-icons">search</i></li> -->
 	  </ul>
 	
