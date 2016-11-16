@@ -30,12 +30,13 @@
     </div>
   </nav>
   <div class="section" id="index-banner">
-    <div class="white z-depth-1 container" style='padding: 1%;'>
+    <div class="white z-depth-1 container" style='padding: 1% 1% 1% 1%;'>
       <div class="row center-align">
         <h4>Upload a Dataset</h4>
       </div>
       <div class="row">
         <form action="#">
+        <div class="input-field col s12">
           <div class="file-field input-field">
             <div class="btn">
               <span>File</span>
@@ -45,11 +46,12 @@
               <input class="file-path validate" type="text" placeholder="Upload a Dataset">
             </div>
           </div>
+          </div>
         </form>
       </div>
-      <div class="indigo z-depth-1 container" style="padding: 1%; width: 90%;">
+      <div class="z-depth-1 container" style="padding: 1% 1% 1% 1%; width: 100%;">
         <div class="row" style="padding: 1%">
-          <h5 class="white-text">Script File Upload (Optional)</h5>
+          <h5>Script File Upload (Optional)</h5>
           <form action="#">
             <div class="file-field input-field">
               <div class="btn">
@@ -62,8 +64,8 @@
             </div>
           </form>
         </div>
-        <div class="row" style="padding: 1%">
-          <h5 class="white-text">Docker Config File Upload (Optional)</h5>
+        <div class="row" style="padding: 1% 1% 1% 1%;">
+          <h5>Docker Config File Upload (Optional)</h5>
           <form action="#">
             <div class="file-field input-field">
               <div class="btn">
@@ -84,11 +86,21 @@
           <input type='submit' name='generate' value='Generate Manifest' class="waves-effect waves-light btn-large col s3">
         </form>
       </div>
-      <div class="row" style="padding: 1%;">
+      
+      <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+		        <form action="" method="post">
+
+					<button type='submit' name='submit' value='' class="btn-floating btn-large yellow accent-4"><i class="large material-icons">done</i></button>
+		        </form>
+  	</div>
+  	<!--old-->
+      <!-- 
+<div class="row" style="padding: 1%;">
         <form action="" method="post">
           <input type='submit' name='submit' value='Upload' class="waves-effect waves-light btn-large col s2 offset-s9">
         </form>
       </div>
+ -->
     </div>
 
   <footer class="page-footer indigo">
