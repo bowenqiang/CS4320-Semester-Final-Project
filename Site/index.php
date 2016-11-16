@@ -29,7 +29,7 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
 			<h1><?php  echo $page['header']; ?></h1>
 			<?php echo $page['body_formatted']; ?>
 			-->
-			<h1>This is the page for Normal User</h1>
+			<h1>This is the page for General User</h1>
 			
 		</div>
 		

@@ -1,14 +1,15 @@
-<nav class="navbar navbar-default">
-	<div class="container">
-		<div class="container-fluid">
-			<ul class="nav navbar-nav">
-				<?php //nav_main($dbc,$pageid); ?>
-				<li><a href="index.php">Dashboard</a></li>
-				<li><a href="user.php">Users Management</a></li>
-				<li><a href="">DB Management</a></li>
-				<li><a href="">Settings</a></li>
-				<li><a href="../logout.php">Logout</a></li>
-			</ul>				
-		</div>
-	</div> 
-</nav><!-- END nav-->
+<nav class="indigo" role="navigation">
+	<div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Software Engineering</a>
+	  <ul class="right hide-on-med-and-down">
+	    <li><a href="#">Git Hub</a></li>
+	    <li><a href="../logout.php">Logout</a></li>
+	<!--         <li><input id="search"><i class="material-icons">search</i></li> -->
+	  </ul>
+	
+	  <ul id="nav-mobile" class="side-nav">
+	    <li><a href="#">Navbar Link</a></li>
+	  </ul>
+	  <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+	</div>
+</nav>
+  

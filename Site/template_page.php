@@ -1,8 +1,8 @@
 <?php
 #Start the session
 session_start();
-if(!isset($_SESSION['username']) or $_SESSION['category'] !='admin') {
-	header('Location: ../login.php');
+if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
+	header('Location: login.php');
 }
 
 ?>
@@ -22,7 +22,7 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] !='admin') {
 	<?php include(D_TEMPLATE.'/navigation.php'); ?>
 	
 	<div>
-		<h>Admin Dashboard</h>
+		<h>Put your stuff here</h>
 		
 		
 	</div>
