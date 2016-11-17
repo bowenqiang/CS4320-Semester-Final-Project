@@ -1,3 +1,4 @@
 .metadata/
 .DS_Store
-connection.php
+Site/config/connection.php
+Site/admin/config/connection.php
