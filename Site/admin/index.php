@@ -27,6 +27,6 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] !='admin') {
 		
 	</div>
 	
-	<?php include(D_TEMPLATE.'/footer.php'); ?>
+	<?php //include(D_TEMPLATE.'/footer.php'); ?>
   </body>
 </html>
