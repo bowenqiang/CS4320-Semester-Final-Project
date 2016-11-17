@@ -81,4 +81,8 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
 	
 	<?php include(D_TEMPLATE.'/footer.php'); ?>
   </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 03f42e409853572c26339307cf49ec1b85d0f060
