@@ -72,16 +72,12 @@ if($_POST) {
 						<button type="submit" value="submit" class="waves-effect waves-light btn">Login</button>
 					</div>
 				</form>
-			</div>
-					
+			</div>					
 		  	<div class="row center">
 		  	</div>
 		  <br><br>
 		</div><!--END of white z-depth-1 container-->		
-	</div><!--END of section-->
-	
-
-	
+	</div><!--END of section-->	
 	<?php include(D_TEMPLATE.'/footer.php'); ?>
   </body>
 </html>

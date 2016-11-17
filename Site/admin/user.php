@@ -6,11 +6,7 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 }
 
 ?>
-
 <?php include('config/setup.php'); ?>
-
-
-
 
 <!DOCTYPE html>
 <html>
@@ -26,7 +22,7 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 		<?php include(D_TEMPLATE.'/navigation.php'); ?>
 		<div class="container">
 			<h1>All users:</h1>
-			<table class="table able-bordered">
+			<table class="table able-bordered" action="user.php" method="post">
 				<tr>
 					<th>user_id</th>
 					<th>UserName</th>
@@ -50,11 +46,12 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 							<td><?php echo $table_user['Hashword']; ?></td>
 							<td><?php echo $table_user['isActive']; ?></td>
 							<td><?php echo $table_user['Category']; ?></td>
+							<td><?php echo '<a href="edit_user.php?id='.$table_user['user_id'].'">Edit</a>' ?></td>
+							<td><?php echo '<a href="delete_user.php?id='.$table_user['user_id'].'">Delete</a>' ?></td>
+							
 						</tr>				
 						<?php
-					}
-				
-				
+					}				
 				?>				
 			</table>
 			
@@ -81,13 +78,13 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 					?>
 					<div class="panel panel-info">
 						<div class="panel-heading">
-							<h1>Create New User</h1>
+							<h5>Create New User</h5>
 						</div>
 						<div class="panel-body">
 							<form action="user.php" method="post" role="form">
 								<div class="form-group">
 									<label for="UserName">UserName</label>
-									<input type="username" class="form-control" id="username" name="username" placeholder="Email">
+									<input type="username" class="form-control" id="username" name="username" placeholder="Username">
 								</div>
 								<div class="form-group">
 									<label for="Email">Email address</label>
@@ -126,7 +123,7 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 			<button>Delete User</button>
 		</div> <!--END container-->
 	
-		<?php include(D_TEMPLATE.'/footer.php'); ?>
+		<?php //include(D_TEMPLATE.'/footer.php'); ?>
 		</div>
 	</body>
 </html>
