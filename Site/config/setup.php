@@ -3,6 +3,7 @@
 #Database Connection:
 include('config/connection.php');
 # Constants:
+define('D_TEMPLATE', 'template');
 
 
 
