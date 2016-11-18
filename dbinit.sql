@@ -45,7 +45,7 @@ CREATE TABLE manifest (
     DsTitle varchar(1000),
     DsTimeInterval varchar(255),
     RetrievedTimeInterval varchar(255),
-    DsDateCreated datetime,
+    DsDateCreated date,
     JsonFile varchar(255) NOT NULL,
     DataSet varchar(255) NOT NULL,
     PRIMARY KEY (MID),

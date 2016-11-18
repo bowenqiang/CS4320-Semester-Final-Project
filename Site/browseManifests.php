@@ -1,3 +1,7 @@
+<?php
+  session_start();
+  include('config/connection.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,34 +53,62 @@
   <div class="section" id="index-banner">
     <div class="white z-depth-1 container" style='padding: 1% 1% 1% 1%;'>
       <br><br>
-      <div class="row">
-		  <div class="input-field col s12">
-		  	<i class="material-icons prefix">search</i>
-			  <input id="search" type="text" class="validate">
-			  <label for="search">Search</label>
-
+        <form action="browseManifests.php" method="post">
+          <div class=" row input-field col s12">
+		  	     <i class="material-icons prefix">search</i>
+			       <input style="padding-left: 30px;" class="col s10 validate" name="search" type="text">
+             <label for="search">Search</label>
+             <input class="col s2 waves-effect waves-light btn" type="submit" value="search">
+           </div>
+           <div class="row">
+             <p class="col s6">
+               <input name="searchOptions" type="radio" id="1" value='name' checked/>
+               <label for="1">Name</label>
+               <input name="searchOptions" type="radio" id="2" value='date'/>
+               <label for="2">Date Added</label>
+             </p>
+          </div>
+        </form>
 			  <table class="highlight">
         <thead>
           <tr>
               <th style='width:65%' data-field="data">Data</th>
-              <th style='width:10%' data-field="date">Date</th>
+              <th style='width:10%' data-field="date">Date/Time</th>
               <th style='width:15%' data-field="contrib"></th>
               <th style="width:10%" data-field="download"></th>
           </tr>
         </thead>
 
         <tbody style='padding: 50px 30px 50px 80px;'>
-        <?php
-          for ($i=0; $i < 4; $i++) {
-            echo "<tr>";
-            echo "<td style='margin-left:2px'><b>samplename".$i."</b><p>description</p></td>";
-            echo "<td>sampledate".$i."</td>";
-            echo "<td>
-                    <a class='waves-effect waves-light btn' href='contribute.php'>Contribute</a>
-                  </td>";
-            echo "<td>  <form method='post' action=''><input type='submit' name='download' value='download'></form></td>";
-            echo "</tr>";
-          }
+          <?php
+            if(isset($_POST['search'])) {
+              $radio = $_POST['searchOptions'];
+              if($radio == 'name') {
+                $stmt = "SELECT UploadTitle, UploadDate, UploadComment From manifest WHERE UploadTitle LIKE ?";
+              } else if($radio =='date') {
+                $stmt = "SELECT UploadTitle, UploadDate, UploadComment FROM manifest WHERE UploadDate LIKE ?";
+              }
+              $search = "%{$_POST['search']}%";
+              if($query = $dbc->prepare($stmt)) {
+                $query->bind_param("s", $search) or die("Couldnt bind parameters");
+                $query->execute() or die("coundnt execute");
+                $query->bind_result($title, $date, $comment) or die("Couldnt bind results");
+              }
+              while ($query->fetch()) {
+          ?>
+                <tr>
+                  <td style='margin-left:2px'><b><?php echo "$title"; ?></b>
+                    <p><?php echo "$comment"; ?></p>
+                  </td>
+                  <td><?php echo "$date"; ?></td>
+                  <td><a class='waves-effect waves-light btn' href='contribute.php'>Contribute</a></td>
+                  <td><form method='post' action=''><input type='submit' name='download' value='download'></form></td>
+                </tr>
+          <?php
+              }
+              $query->close();
+              $dbc->close();
+            }
           ?>
         </tbody>
       </table>
@@ -94,36 +126,7 @@
     </div>
   </div>
 
-  <footer class="page-footer indigo">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Company Bio</h5>
-          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-
-
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <?php include "template/footer.php"; ?>
   <?php
     if (isset($_POST['download'])) {
       echo "<script type='text/javascript'>alert('download manifest')</script>";
