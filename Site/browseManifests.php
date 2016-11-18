@@ -1,9 +1,6 @@
 <?php
   session_start();
   include('config/connection.php');
-<<<<<<< HEAD
-?>
-=======
 
 if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
 	header('Location: login.php');
@@ -11,7 +8,6 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
 ?>
 <?php include('config/setup.php'); ?>
 
->>>>>>> jry83_sprint3
 <!DOCTYPE html>
 <html lang="en">
 <head>
