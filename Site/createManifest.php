@@ -22,7 +22,6 @@ if ($mysqli->connect_errno) {
         $DsTitle = $_POST['DsTitle'];
         $DsTimeInterval = $_POST['DsTimeInterval'];
         $RetrievedTimeInterval = $_POST['RetrievedTimeInterval'];
-        //$DsDateCreated = $_POST['DsDateCreated'];
         $DsDateCreated = date('Y-m-d', strtotime($_POST['DsDateCreated']));
         $JsonFile = $_POST['JsonFile'];
         $DataSet = $_POST['DataSet'];
@@ -33,12 +32,9 @@ if ($mysqli->connect_errno) {
             if(mysqli_num_rows($result)) {
                 $data=mysqli_fetch_assoc($result);
             }else{
-                printf("Author does not exist! Add person before adding manifest authored by!");
+                printf("Author does not exist! Add person to database before adding manifest authored by that person!");
             }
-            $PID = $data['PID'];
-            printf("PID: %s\n", $PID);
-//            printf("mysqli error: %s\n", $mysqli->error);
-//            $PID = mysqli_fetch_field($result);   //This PID from person table gives us the Creator field we need for foreign key reference
+            $PID = $data['PID'];    //This PID from person table gives us the Creator field we need for foreign key reference
             $Creator = $PID; //just to make it obvious in the sql statement
             $sql = "INSERT INTO manifest VALUES('$StandardVersions', DEFAULT, $Creator, now(), 
                 '$UploadComment', '$UploadTitle', '$DsTitle', '$DsTimeInterval', '$RetrievedTimeInterval', 
@@ -46,38 +42,12 @@ if ($mysqli->connect_errno) {
 	       if($result = mysqli_query($dbc, $sql)){	//Should test this for success
                 echo "<script type='text/javascript'>alert('Manifest created!')</script>";
            }else{
-               printf("Database insert failed!\n");
-               printf("mysqli error: %s\n", $mysqli->error);
                printf("dbc error: %s\n", $dbc->error);
            }
         }else{
-            //echo "<script type='text/javascript'>alert('Insert query failed!')</script>";
-//            die(mysqli_error());
-            printf("DsDateCreated: %s\n", $DsDateCreated);
-            printf("PID: %s\n", $PID);
-//            echo mysqli_errno($this->db_link);
+            printf("dbc error: %s\n", $dbc->error);
         }
     }
-    /*
-if($_POST) {
-	$query="SELECT * FROM user_info WHERE AccountEmail='$_POST[email]' AND Hashword = '$_POST[password]'";
-	$result=mysqli_query($dbc, $query);
-	if(mysqli_num_rows($result) == 1) {
-		$data=mysqli_fetch_assoc($result);
-		if($data['isActive'] == 1) {
-			$_SESSION['username'] = $_POST['email'];
-			if($data['Category'] == 'admin' ) {
-				$_SESSION['category'] = 'admin';
-				header('Location:admin/index.php');
-			} else {
-				$_SESSION['category'] = 'other';
-				header('Location: index.php');
-			}
-		}		
-	}
-}
-
-*/
 ?>
 							
 
