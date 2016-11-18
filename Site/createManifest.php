@@ -5,19 +5,57 @@ if(!isset($_SESSION['username'])) {
 	header('Location: login.php');
 }
 
+include('config/connection.php');
 include('config/setup.php');
 
-
+if ($mysqli->connect_errno) {
+    printf("Connect failed: %s\n", $mysqli->connect_error);
+    exit();
+}
 
     if($_POST) {
+        $StandardVersions = $_POST['StandardVersions'];
+        $FirstName = $_POST['FirstName'];
+        $LastName = $_POST['LastName'];
+        $UploadComment = $_POST['UploadComment'];
+        $UploadTitle = $_POST['UploadTitle'];
+        $DsTitle = $_POST['DsTitle'];
+        $DsTimeInterval = $_POST['DsTimeInterval'];
+        $RetrievedTimeInterval = $_POST['RetrievedTimeInterval'];
+        //$DsDateCreated = $_POST['DsDateCreated'];
+        $DsDateCreated = date('Y-m-d', strtotime($_POST['DsDateCreated']));
+        $JsonFile = $_POST['JsonFile'];
+        $DataSet = $_POST['DataSet'];
 
-        $sql = "SELECT PID FROM person WHERE FirstName = '$FirstName' AND LastName = '$LastName'";
-        if($result = mysqli_query($sql)){
-           $PID = mysqli_fetch_field($result);/*This PID from person table gives us the Creator field we need for foreign key reference*/
-           $Creator = $PID; /*just to make it obvious in the sql statement*/
+        $sql = "SELECT PID FROM person WHERE FirstName='$FirstName' AND LastName='$LastName'";
 
+        if($result = mysqli_query($dbc, $sql)){
+            if(mysqli_num_rows($result)) {
+                $data=mysqli_fetch_assoc($result);
+            }else{
+                printf("Author does not exist! Add person before adding manifest authored by!");
+            }
+            $PID = $data['PID'];
+            printf("PID: %s\n", $PID);
+//            printf("mysqli error: %s\n", $mysqli->error);
+//            $PID = mysqli_fetch_field($result);   //This PID from person table gives us the Creator field we need for foreign key reference
+            $Creator = $PID; //just to make it obvious in the sql statement
+            $sql = "INSERT INTO manifest VALUES('$StandardVersions', DEFAULT, $Creator, now(), 
+                '$UploadComment', '$UploadTitle', '$DsTitle', '$DsTimeInterval', '$RetrievedTimeInterval', 
+                '$DsDateCreated', '$JsonFile', '$DataSet')"; //DEFAULT for MID since it auto-increments; can be changed depending on final implementation
+	       if($result = mysqli_query($dbc, $sql)){	//Should test this for success
+                echo "<script type='text/javascript'>alert('Manifest created!')</script>";
+           }else{
+               printf("Database insert failed!\n");
+               printf("mysqli error: %s\n", $mysqli->error);
+               printf("dbc error: %s\n", $dbc->error);
+           }
         }else{
-
+            //echo "<script type='text/javascript'>alert('Insert query failed!')</script>";
+//            die(mysqli_error());
+            printf("DsDateCreated: %s\n", $DsDateCreated);
+            printf("PID: %s\n", $PID);
+//            echo mysqli_errno($this->db_link);
         }
     }
     /*
@@ -99,7 +137,11 @@ if($_POST) {
 			    	</div> 
 					<div class="input-field col s12 form-group">						
 						<label for="DsDateCreated" >Dataset Date Created</label>
-						<input id="DsDateCreated" type="datetime" class="validate" name="DsDateCreated">
+						<input id="DsDateCreated" type="date" class="validate" name="DsDateCreated">
+			    	</div>					
+                    <div class="input-field col s12 form-group">						
+						<label for="JsonFile" >JSON File URL</label>
+						<input id="JsonFile" type="text" class="validate" name="JsonFile">
 			    	</div>
 					<div class="input-field col s12 form-group">						
 						<label for="DataSet" >DataSet URL</label>
