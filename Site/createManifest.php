@@ -4,8 +4,42 @@ session_start();
 if(!isset($_SESSION['username'])) {
 	header('Location: login.php');
 }
+
+include('config/setup.php');
+
+<?php
+    
+    
+
+	$sql = "SELECT PID FROM person WHERE FirstName = '$FirstName' AND LastName = '$LastName'";
+    if($result = mysqli_query($sql)){
+       $PID = mysqli_fetch_field($result);/*This PID from person table gives us the Creator field we need for foreign key reference*/
+	   $Creator = $PID; /*just to make it obvious in the sql statement*/
+        
+    }else{
+
+    }
+    /*
+if($_POST) {
+	$query="SELECT * FROM user_info WHERE AccountEmail='$_POST[email]' AND Hashword = '$_POST[password]'";
+	$result=mysqli_query($dbc, $query);
+	if(mysqli_num_rows($result) == 1) {
+		$data=mysqli_fetch_assoc($result);
+		if($data['isActive'] == 1) {
+			$_SESSION['username'] = $_POST['email'];
+			if($data['Category'] == 'admin' ) {
+				$_SESSION['category'] = 'admin';
+				header('Location:admin/index.php');
+			} else {
+				$_SESSION['category'] = 'other';
+				header('Location: index.php');
+			}
+		}		
+	}
+}
+
+*/
 ?>
-<?php include('config/setup.php'); ?>
 							
 
 <!DOCTYPE html>
