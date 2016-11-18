@@ -3,7 +3,7 @@
 session_start();
 #Database Connection:
 include('config/connection.php');
-//include('config/setup.php');
+include('config/setup.php');
 
 if($_POST) {
 	$query="SELECT * FROM user_info WHERE AccountEmail='$_POST[email]' AND Hashword = '$_POST[password]'";
