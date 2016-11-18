@@ -120,7 +120,7 @@ if ($mysqli->connect_errno) {
                     
 					<div class="col s4">
 						<button type="submit" value="submit" class="waves-effect waves-light btn">Create</button>
-                        <a href='login.php' class="waves-effect waves-light btn">Cancel</a>
+                        <a href='addDataset.php' class="waves-effect waves-light btn">Cancel</a>
 					</div>
 				</form>
 

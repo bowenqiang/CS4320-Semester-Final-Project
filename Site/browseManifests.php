@@ -1,7 +1,17 @@
 <?php
   session_start();
   include('config/connection.php');
+<<<<<<< HEAD
 ?>
+=======
+
+if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
+	header('Location: login.php');
+}
+?>
+<?php include('config/setup.php'); ?>
+
+>>>>>>> jry83_sprint3
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +27,6 @@
 </head>
 <!--
 <style>
-
    /* label focus color */
    .input-field input[type=text]:focus + label {
      color: #F0F000;
@@ -34,14 +43,15 @@
  -->
 
 <body class='indigo lighten-5'>
-  <nav class="indigo" role="navigation">
+    <?php include(D_TEMPLATE.'/navigation.php'); ?>
+<!--  <nav class="indigo" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Software Engineering</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#">Git Hub</a></li>
 				<li><a href="login.php">login</a></li>
 				<li><a href="addDataset.php">addDataset</a></li>
 				<li><a href="contribute.php">contribute</a></li>
-<!--         <li><input id="search"><i class="material-icons">search</i></li> -->
+         <li><input id="search"><i class="material-icons">search</i></li> 
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
@@ -49,7 +59,7 @@
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
-  </nav>
+  </nav>    -->
   <div class="section" id="index-banner">
     <div class="white z-depth-1 container" style='padding: 1% 1% 1% 1%;'>
       <br><br>

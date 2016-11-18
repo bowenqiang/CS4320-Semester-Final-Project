@@ -1,3 +1,15 @@
+<?php
+#Start the session
+session_start();
+if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
+	header('Location: login.php');
+}
+
+include('config/setup.php');
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,14 +25,15 @@
 </head>
 
 <body class='indigo lighten-5'>
-  <nav class="indigo" role="navigation">
+    <?php include(D_TEMPLATE.'/navigation.php'); ?>
+<!--  <nav class="indigo" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Software Engineering</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#">Git Hub</a></li>
 				<li><a href="browseManifests.php">Browse Manifests</a></li>
 				<li><a href="login.php">login</a></li>
 				<li><a href="contribute.php">contribute</a></li>
-<!--         <li><input id="search"><i class="material-icons">search</i></li> -->
+         <li><input id="search"><i class="material-icons">search</i></li> 
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
@@ -28,7 +41,7 @@
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
-  </nav>
+  </nav> -->
   <div class="section" id="index-banner">
     <div class="white z-depth-1 container" style='padding: 1% 1% 1% 1%;'>
       <div class="row center-align">
@@ -83,7 +96,8 @@
         <form method="post" action="">
           <input type='submit' name='upload' value='Upload Manifest' class="waves-effect waves-light btn-large col s3 offset-s2">
           <h4 class="col s2 valign">OR</h4>
-          <input type='submit' name='generate' value='Generate Manifest' class="waves-effect waves-light btn-large col s3">
+            <a href='createManifest.php' class="waves-effect waves-light btn-large col s3">Generate Manifest</a>
+<!--          <input type='submit' name='generate' value='Generate Manifest' class="waves-effect waves-light btn-large col s3">-->
         </form>
       </div>
       
@@ -103,7 +117,7 @@
  -->
     </div>
 
-  <footer class="page-footer indigo">
+<!--  <footer class="page-footer indigo">
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
@@ -132,7 +146,7 @@
         </div>
       </div>
     </div>
-  </footer>
+  </footer> -->
   <?php
     if (isset($_POST['upload'])) {
       echo "<script type='text/javascript'>alert('Upload Manifest from Computer')</script>";

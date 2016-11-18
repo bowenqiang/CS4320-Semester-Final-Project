@@ -4,7 +4,7 @@ session_start();
 if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
 	header('Location: login.php');
 }
-
+header('Location: browseManifests.php');
 ?>
 <?php include('config/setup.php'); ?>
 
