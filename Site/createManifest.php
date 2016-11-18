@@ -7,17 +7,18 @@ if(!isset($_SESSION['username'])) {
 
 include('config/setup.php');
 
-<?php
-    
-    
 
-	$sql = "SELECT PID FROM person WHERE FirstName = '$FirstName' AND LastName = '$LastName'";
-    if($result = mysqli_query($sql)){
-       $PID = mysqli_fetch_field($result);/*This PID from person table gives us the Creator field we need for foreign key reference*/
-	   $Creator = $PID; /*just to make it obvious in the sql statement*/
-        
-    }else{
 
+    if($_POST) {
+
+        $sql = "SELECT PID FROM person WHERE FirstName = '$FirstName' AND LastName = '$LastName'";
+        if($result = mysqli_query($sql)){
+           $PID = mysqli_fetch_field($result);/*This PID from person table gives us the Creator field we need for foreign key reference*/
+           $Creator = $PID; /*just to make it obvious in the sql statement*/
+
+        }else{
+
+        }
     }
     /*
 if($_POST) {
