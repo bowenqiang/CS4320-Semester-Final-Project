@@ -4,10 +4,26 @@ session_start();
 if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 	header('Location: ../login.php');
 }
-
 ?>
 <?php include('config/setup.php'); ?>
-
+<?php
+	if($_POST["submitted"] == 1) {
+		if(isset($_POST['isactive']) && $_POST['isactive'] == 'Yes') {
+			$isactive = 1;
+		}else {
+			$isactive = 0;
+		}							
+		$query = "INSERT INTO user_info(UserName, AccountEmail, Hashword, isActive, Category) VALUES ('$_POST[username]', '$_POST[email]', '$_POST[password]', $isactive,'$_POST[category]')";
+		$result = mysqli_query($dbc, $query);
+		if($result) {
+			echo '<p>User was added!</p>';
+		} else {
+			echo '<p>Failed to add a new user:'.mysqli_error($dbc).'</p>';
+			echo '<p>'.$query.'</p>';
+		}
+		//header('Location: user.php');
+	}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -32,8 +48,7 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 					<th>isActive</th>
 					<th>Category</th>
 				</tr>
-				
-				<?php
+					<?php
 					$query = "SELECT * From user_info";
 					$result = mysqli_query($dbc, $query);
 					while($table_user = mysqli_fetch_assoc($result)) {
@@ -53,29 +68,10 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 						<?php
 					}				
 				?>				
-			</table>
-			
-			
+			</table>			
 			<div class="row">
 				<div class="col-md-4">
-					<?php
-						if($_POST["submitted"] == 1) {
-							if(isset($_POST['isactive']) && $_POST['isactive'] == 1) {
-								$isactive = 1;
-							}else {
-								$isactive = 0;
-							}							
-							$query = "INSERT INTO user_info(UserName, AccountEmail, Hashword, isActive, Category) VALUES ('$_POST[username]', '$_POST[email]', '$_POST[password]', $isactive,'$_POST[category]')";
-							$result = mysqli_query($dbc, $query);
-							if($result) {
-								echo '<p>User was added!</p>';
-							} else {
-								echo '<p>Failed to add a new user:'.mysqli_error($dbc).'</p>';
-								echo '<p>'.$query.'</p>';
-							}
-							header('Location: user.php');
-						}
-					?>
+
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<h5>Create New User</h5>
@@ -103,10 +99,12 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 									    <option>4</option>
 									  </select>
 								</div>								
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="isactive" value="1"> Is active?
-									</label>
+								<div class="form-group">
+									<label for="isActive">isActive</label>
+									  <select class="form-control" id="isActive" name="isactive">
+									    <option>Yes</option>
+									    <option>No</option>
+									  </select>
 								</div>
 								<button type="submit" class="btn btn-default">Submit</button>
 								<input type="hidden" name="submitted" value="1">
