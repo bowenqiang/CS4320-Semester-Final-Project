@@ -98,7 +98,7 @@ include('config/setup.php');
     	<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
         <form method="post" action="">
           <input type="submit" name="submit" value="submit" class="btn-floating btn-large yellow accent-4">
-            <a href='addDataset.php' class="btn-floating btn-large yellow accent-4">Cancel</a>
+            <a href='browseManifests.php' class="btn-floating btn-large yellow accent-4">Cancel</a>
         </form>
       </div>
 
