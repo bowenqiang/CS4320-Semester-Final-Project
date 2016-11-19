@@ -1,10 +1,3 @@
-<?php
-#Start the session
-session_start();
-if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
-	header('Location: login.php');
-}
-?>
 <?php include('config/setup.php'); ?>
 							
 

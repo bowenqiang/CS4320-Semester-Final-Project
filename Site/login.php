@@ -70,6 +70,7 @@ if($_POST) {
 					</div>
 					<div class="col s4">
 						<button type="submit" value="submit" class="waves-effect waves-light btn">Login</button>
+                        <a href='createUser.php' class="waves-effect waves-light btn">Create an Account</a>
 					</div>
 				</form>
 			</div>					

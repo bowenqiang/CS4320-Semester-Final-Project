@@ -4,6 +4,7 @@
 	    <li><a href="https://github.com/JustinRenneke/CS4320-Semester-Final-Project/wiki">Git Hub</a></li>
 	    <li><a href="browseManifests.php">Search</a></li>
         <li><a href="addDataset.php">Upload</a></li>
+        <li><a href="createUser.php">Create an Account</a></li>
         <li><a href="logout.php">Logout</a></li>
 	<!--         <li><input id="search"><i class="material-icons">search</i></li> -->
 	  </ul>
