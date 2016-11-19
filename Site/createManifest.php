@@ -1,30 +1,60 @@
 <?php
 #Start the session
-session_start();
-if(!isset($_SESSION['username'])) {
-	header('Location: login.php');
-}
+    session_start();
+    if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
+        header('Location: login.php');
+    }
 
-include('config/connection.php');
-include('config/setup.php');
+    include('config/connection.php');
+    include('config/setup.php');
 
-if ($mysqli->connect_errno) {
-    printf("Connect failed: %s\n", $mysqli->connect_error);
-    exit();
-}
+    if ($mysqli->connect_errno) {
+        printf("Connect failed: %s\n", $mysqli->connect_error);
+        exit();
+    }
 
     if($_POST) {
-        $StandardVersions = $_POST['StandardVersions'];
-        $FirstName = $_POST['FirstName'];
-        $LastName = $_POST['LastName'];
-        $UploadComment = $_POST['UploadComment'];
-        $UploadTitle = $_POST['UploadTitle'];
-        $DsTitle = $_POST['DsTitle'];
-        $DsTimeInterval = $_POST['DsTimeInterval'];
-        $RetrievedTimeInterval = $_POST['RetrievedTimeInterval'];
+        $StandardVersions = htmlspecialchars($_POST['StandardVersions']);
+        if(strlen($StandardVersions) > 255){
+            echo "<script type='text/javascript'>alert('ERROR: Standard Versions cannot be > 255 chars')</script>";
+        }
+        $FirstName = htmlspecialchars($_POST['FirstName']);
+        if(strlen($FirstName) > 255 || strlen($FirstName) == 0){
+            echo "<script type='text/javascript'>alert('ERROR: First Name cannot be > 255 or 0 chars')</script>";
+        }        
+        $LastName = htmlspecialchars($_POST['LastName']);
+        if(strlen($LastName) > 255 || strlen($LastName) == 0){
+            echo "<script type='text/javascript'>alert('ERROR: Last Name cannot be > 255 or 0 chars')</script>";
+        }        
+        $UploadComment = htmlspecialchars($_POST['UploadComment']);
+        if(strlen($UploadComment) > 1000){
+            echo "<script type='text/javascript'>alert('ERROR: Upload Comment cannot be > 1000 chars')</script>";
+        }        
+        $UploadTitle = htmlspecialchars($_POST['UploadTitle']);
+        if(strlen($UploadTitle) > 1000){
+            echo "<script type='text/javascript'>alert('ERROR: Upload Title cannot be > 1000 chars')</script>";
+        }        
+        $DsTitle = htmlspecialchars($_POST['DsTitle']);
+        if(strlen($DsTitle) > 1000){
+            echo "<script type='text/javascript'>alert('ERROR: Dataset Title cannot be > 1000 chars')</script>";
+        }        
+        $DsTimeInterval = htmlspecialchars($_POST['DsTimeInterval']);
+        if(strlen($DsTimeInterval) > 255){
+            echo "<script type='text/javascript'>alert('ERROR: Dataset Time Interval cannot be > 255 chars')</script>";
+        }
+        $RetrievedTimeInterval = htmlspecialchars($_POST['RetrievedTimeInterval']);
+        if(strlen($RetrievedTimeInterval) > 255){
+            echo "<script type='text/javascript'>alert('ERROR: Retrieved Time Interval cannot be > 255 chars')</script>";
+        }        
         $DsDateCreated = date('Y-m-d', strtotime($_POST['DsDateCreated']));
-        $JsonFile = $_POST['JsonFile'];
-        $DataSet = $_POST['DataSet'];
+        $JsonFile = htmlspecialchars($_POST['JsonFile']);
+        if(strlen($JsonFile) > 255){
+            echo "<script type='text/javascript'>alert('ERROR: JSON File URL cannot be > 255 chars')</script>";
+        }        
+        $DataSet = htmlspecialchars($_POST['DataSet']);
+        if(strlen($DataSet) > 255 || strlen($DataSet) == 0){
+            echo "<script type='text/javascript'>alert('ERROR: Dataset URL cannot be > 255 or 0 chars')</script>";
+        }        
 
         $sql = "SELECT PID FROM person WHERE FirstName='$FirstName' AND LastName='$LastName'";
 
@@ -32,7 +62,7 @@ if ($mysqli->connect_errno) {
             if(mysqli_num_rows($result)) {
                 $data=mysqli_fetch_assoc($result);
             }else{
-                printf("Author does not exist! Add person to database before adding manifest authored by that person!");
+                echo "<script type='text/javascript'>alert('Author does not exist! Add person to database before adding manifest authored by that person!')</script>";
             }
             $PID = $data['PID'];    //This PID from person table gives us the Creator field we need for foreign key reference
             $Creator = $PID; //just to make it obvious in the sql statement
@@ -42,9 +72,11 @@ if ($mysqli->connect_errno) {
 	       if($result = mysqli_query($dbc, $sql)){	//Should test this for success
                 echo "<script type='text/javascript'>alert('Manifest created!')</script>";
            }else{
+               echo "<script type='text/javascript'>alert('Database insertion error! Manifest creation failed!')</script>";
                printf("dbc error: %s\n", $dbc->error);
            }
         }else{
+            echo "<script type='text/javascript'>alert('Mysqli query error! Manifest creation failed!')</script>";
             printf("dbc error: %s\n", $dbc->error);
         }
     }
