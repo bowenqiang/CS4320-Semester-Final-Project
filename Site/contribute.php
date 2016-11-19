@@ -98,7 +98,7 @@ include('config/setup.php');
     	<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
         <form method="post" action="">
           <input type="submit" name="submit" value="submit" class="btn-floating btn-large yellow accent-4">
-            <a href='browseManifests.php' class="btn-floating btn-large yellow accent-4">Cancel</a>
+           <a href='browseManifests.php' class="btn-floating btn-large yellow accent-4">Cancel</a>
         </form>
       </div>
 
@@ -137,10 +137,11 @@ include('config/setup.php');
   </footer>     -->
   <?php
     if(isset($_POST['add'])){
-      echo "<script type='text/javascript'>alert('Added File')</script>";
+      echo "<script type='text/javascript'>alert('Added File.')</script>";
     }
     if (isset($_POST['submit'])) {
-      echo "<script type='text/javascript'>alert('Submit files for upload')</script>";
+      echo "<script type='text/javascript'>alert('Files Uploaded! Redirecting...')</script>";
+        echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
     }
     if (isset($_POST['rename'])) {
       echo "<script type='text/javascript'>alert('rename selected file')</script>";

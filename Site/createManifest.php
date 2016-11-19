@@ -70,7 +70,8 @@
                 '$UploadComment', '$UploadTitle', '$DsTitle', '$DsTimeInterval', '$RetrievedTimeInterval', 
                 '$DsDateCreated', '$JsonFile', '$DataSet')"; //DEFAULT for MID since it auto-increments; can be changed depending on final implementation
 	       if($result = mysqli_query($dbc, $sql)){	//Should test this for success
-                echo "<script type='text/javascript'>alert('Manifest created!')</script>";
+                echo "<script type='text/javascript'>alert('Manifest created! Redirecting...')</script>";
+                echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
            }else{
                echo "<script type='text/javascript'>alert('Database insertion error! Manifest creation failed!')</script>";
                printf("dbc error: %s\n", $dbc->error);
@@ -152,7 +153,7 @@
                     
 					<div class="col s4">
 						<button type="submit" value="submit" class="waves-effect waves-light btn">Create</button>
-                        <a href='addDataset.php' class="waves-effect waves-light btn">Cancel</a>
+                        <a href='browseManifests.php' class="waves-effect waves-light btn">Cancel</a>
 					</div>
 				</form>
 
