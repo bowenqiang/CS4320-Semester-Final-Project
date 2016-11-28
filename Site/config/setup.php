@@ -6,6 +6,7 @@ include('config/connection.php');
 define('D_TEMPLATE', 'template');
 
 
+
 $site_title = 'FinalProject';
 
 # Functions:

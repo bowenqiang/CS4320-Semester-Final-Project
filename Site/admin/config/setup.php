@@ -1,4 +1,6 @@
 <?php
+#output_buffering
+ob_start();
 # Constants:
 define('D_TEMPLATE', 'template');
 
