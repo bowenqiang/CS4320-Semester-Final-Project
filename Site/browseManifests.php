@@ -2,7 +2,7 @@
   session_start();
   include('config/connection.php');
 
-if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
+if(!isset($_SESSION['username'])) {
 	header('Location: login.php');
 }
 ?>
