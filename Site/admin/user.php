@@ -69,7 +69,11 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 					}				
 				?>				
 			</table>			
+<<<<<<< HEAD
 			<!--<div class="row">
+=======
+			<div class="row">
+>>>>>>> origin/master
 				<div class="col-md-4">
 
 					<div class="panel panel-info">
