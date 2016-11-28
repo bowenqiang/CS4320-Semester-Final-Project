@@ -15,7 +15,7 @@ if($_POST) {
 			$_SESSION['username'] = $_POST['email'];
 			if($data['Category'] == 'admin' ) {
 				$_SESSION['category'] = 'admin';
-				header('Location:admin/index.php');
+				header('Location:admin/user.php');
 			} else {
 				$_SESSION['category'] = 'other';
 				header('Location: index.php');
@@ -61,27 +61,24 @@ if($_POST) {
 			  		
 				<form action="login.php" method="post" role="form">
 					<div class="input-field col s12 form-group">						
-						<label for="email" >AccountEmail</label>
+						<label for="email" >Email</label>
 						<input id="email" type="text" class="validate" name="email">
 			    	</div>
 			    	<div class="input-field col s12">		        	
 						<label for="password" type="password" name="password">Password</label>
-						<input id="password" type="text" class="validate" name="password">
+						<input id="password" type="password" class="validate" name="password">
 					</div>
-					<div class="col s4">
+					<div class="col s8">
 						<button type="submit" value="submit" class="waves-effect waves-light btn">Login</button>
+                        <a href='createUser.php' class="waves-effect waves-light btn">Create  Account</a>
 					</div>
 				</form>
-			</div>
-					
+			</div>					
 		  	<div class="row center">
 		  	</div>
 		  <br><br>
 		</div><!--END of white z-depth-1 container-->		
-	</div><!--END of section-->
-	
-
-	
+	</div><!--END of section-->	
 	<?php include(D_TEMPLATE.'/footer.php'); ?>
   </body>
 </html>

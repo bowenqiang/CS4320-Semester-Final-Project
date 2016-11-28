@@ -1,3 +1,13 @@
+<?php
+#Start the session
+session_start();
+if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
+	header('Location: login.php');
+}
+
+include('config/setup.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,14 +40,15 @@
  -->
 
 <body class='indigo lighten-5'>
-  <nav class="indigo" role="navigation">
+    <?php include(D_TEMPLATE.'/navigation.php'); ?>
+<!--  <nav class="indigo" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Contribute</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#">Git Hub</a></li>
 				<li><a href="browseManifests.php">Browse Manifests</a></li>
 				<li><a href="addDataset.php">addDataset</a></li>
 				<li><a href="login.php">login</a></li>
-<!--         <li><input id="search"><i class="material-icons">search</i></li> -->
+         <li><input id="search"><i class="material-icons">search</i></li> 
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
@@ -45,7 +56,7 @@
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
-  </nav>
+  </nav>    -->
   <div class="section" id="index-banner">
     <div class="white z-depth-1 container" style='padding: 1% 1% 1% 1%;'>
       <br><br>
@@ -87,13 +98,14 @@
     	<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
         <form method="post" action="">
           <input type="submit" name="submit" value="submit" class="btn-floating btn-large yellow accent-4">
+           <a href='browseManifests.php' class="btn-floating btn-large yellow accent-4">Cancel</a>
         </form>
       </div>
 
     </div>
   </div>
 
-  <footer class="page-footer indigo">
+ <!-- <footer class="page-footer indigo">
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
@@ -122,13 +134,14 @@
         </div>
       </div>
     </div>
-  </footer>
+  </footer>     -->
   <?php
     if(isset($_POST['add'])){
-      echo "<script type='text/javascript'>alert('Added File')</script>";
+      echo "<script type='text/javascript'>alert('Added File.')</script>";
     }
     if (isset($_POST['submit'])) {
-      echo "<script type='text/javascript'>alert('Submit files for upload')</script>";
+      echo "<script type='text/javascript'>alert('Files Uploaded! Redirecting...')</script>";
+        echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
     }
     if (isset($_POST['rename'])) {
       echo "<script type='text/javascript'>alert('rename selected file')</script>";

@@ -1,3 +1,4 @@
+<!--
 <footer class="page-footer indigo">
 	<div class="container">
 	  <div class="row">
@@ -28,3 +29,4 @@
 	  </div>
 	</div>
 </footer>
+-->

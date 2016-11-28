@@ -1,10 +1,3 @@
-<?php
-#Start the session
-session_start();
-if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
-	header('Location: login.php');
-}
-?>
 <?php include('config/setup.php'); ?>
 							
 
@@ -66,7 +59,8 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
         	<!---->
 
 		<div class="col s4">
-			<button class="waves-effect waves-light btn">Create</button>
+<!--			<button class="waves-effect waves-light btn">Create</button> -->
+			<a href='login.php' class="waves-effect waves-light btn">Create</a> 
 			<a href='login.php' class="waves-effect waves-light btn">Cancel</a>
 		</div>
     </div>
@@ -82,3 +76,4 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
 	<?php include(D_TEMPLATE.'/footer.php'); ?>
   </body>
 </html>
+
