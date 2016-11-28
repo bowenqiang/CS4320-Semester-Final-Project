@@ -60,7 +60,6 @@ if(!isset($_SESSION['username'])) {
     <div class="white z-depth-1 container" style='padding: 1% 1% 1% 1%;'>
       <br><br>
         <form action="browseManifests.php" method="post">
-<<<<<<< HEAD
           <div class='row'>
 		<div class="input-field col s12">
 			       <input class=" validate col s11" name="search" type="text">
@@ -68,26 +67,11 @@ if(!isset($_SESSION['username'])) {
 		<button class=" waves-effect waves-light btn col s1" type="submit"><i class="material-icons">search</i></button>
              </div> 	
 		<div class="col s4">
-=======
-          <div class=" row input-field col s12">
-		  	     <i class="material-icons prefix">search</i>
-			       <input style="padding-left: 30px;" class="col s10 validate" name="search" type="text">
-             <label for="search">Search</label>
-             <input class="col s2 waves-effect waves-light btn" type="submit" value="search">
-           </div>
-           <div class="row">
-             <p class="col s6">
->>>>>>> origin/master
                <input name="searchOptions" type="radio" id="1" value='name' checked/>
                <label for="1">Name</label>
                <input name="searchOptions" type="radio" id="2" value='date'/>
                <label for="2">Date Added</label>
-<<<<<<< HEAD
              </div>
-=======
-             </p>
-          </div>
->>>>>>> origin/master
         </form>
 			  <table class="highlight">
         <thead>
