@@ -21,10 +21,10 @@ function checkPerson($dbc, $FirstName, $LastName){
 						return $data['PID'];
 					} else { /* requery failed */
 					}
-			} else { /* insert failed */
+				} else { /* insert failed */
+				}
 			}
 		}
 	}
-
 }
 ?>
