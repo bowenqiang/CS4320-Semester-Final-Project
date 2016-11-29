@@ -1,21 +1,16 @@
 <?php
   session_start();
+  include('config/setup.php');
   include('config/connection.php');
-
-if(!isset($_SESSION['username'])) {
-	header('Location: login.php');
-}
+  if(!isset($_SESSION['username'])) {
+    header('Location: login.php');
+  }
 ?>
-<?php include('config/setup.php'); ?>
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
-
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>Software Engineering</title>
-
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
@@ -35,43 +30,26 @@ if(!isset($_SESSION['username'])) {
    .input-field .prefix.active {
      color: #00F0F0;
    }
-	</style>
+</style>
  -->
-
 <body class='indigo lighten-5'>
-    <?php include(D_TEMPLATE.'/navigation.php'); ?>
-<!--  <nav class="indigo" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Software Engineering</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Git Hub</a></li>
-				<li><a href="login.php">login</a></li>
-				<li><a href="addDataset.php">addDataset</a></li>
-				<li><a href="contribute.php">contribute</a></li>
-         <li><input id="search"><i class="material-icons">search</i></li> 
-      </ul>
-
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>    -->
+  <?php include(D_TEMPLATE.'/navigation.php'); ?>
   <div class="section" id="index-banner">
     <div class="white z-depth-1 container" style='padding: 1% 1% 1% 1%;'>
       <br><br>
         <form action="browseManifests.php" method="post">
           <div class='row'>
-		<div class="input-field col s12">
-			       <input class=" validate col s11" name="search" type="text">
-             <label for="search">Search</label>
-		<button class=" waves-effect waves-light btn col s1" type="submit"><i class="material-icons">search</i></button>
-             </div> 	
-		<div class="col s4">
+            <div class="input-field col s12">
+			        <input class=" validate col s11" name="search" type="text">
+              <label for="search">Search</label>
+		          <button class=" waves-effect waves-light btn col s1" type="submit"><i class="material-icons">search</i></button>
+            </div>
+		        <div class="col s4">
                <input name="searchOptions" type="radio" id="1" value='name' checked/>
                <label for="1">Name</label>
                <input name="searchOptions" type="radio" id="2" value='date'/>
                <label for="2">Date Added</label>
-             </div>
+            </div>
         </form>
 			  <table class="highlight">
         <thead>
@@ -88,15 +66,15 @@ if(!isset($_SESSION['username'])) {
             if(isset($_POST['search'])) {
               $radio = $_POST['searchOptions'];
               if($radio == 'name') {
-                $stmt = "SELECT UploadTitle, UploadDate, UploadComment From manifest WHERE UploadTitle LIKE ?";
+                $stmt = "SELECT UploadTitle, UploadDate, UploadComment, JsonFile From manifest WHERE UploadTitle LIKE ?";
               } else if($radio =='date') {
-                $stmt = "SELECT UploadTitle, UploadDate, UploadComment FROM manifest WHERE UploadDate LIKE ?";
+                $stmt = "SELECT UploadTitle, UploadDate, UploadComment, JsonFile FROM manifest WHERE UploadDate LIKE ?";
               }
               $search = "%{$_POST['search']}%";
               if($query = $dbc->prepare($stmt)) {
                 $query->bind_param("s", $search) or die("Couldnt bind parameters");
                 $query->execute() or die("coundnt execute");
-                $query->bind_result($title, $date, $comment) or die("Couldnt bind results");
+                $query->bind_result($title, $date, $comment, $JsonFile) or die("Couldnt bind results");
               }
               while ($query->fetch()) {
           ?>
@@ -106,7 +84,7 @@ if(!isset($_SESSION['username'])) {
                   </td>
                   <td><?php echo "$date"; ?></td>
                   <td><a class='waves-effect waves-light btn' href='contribute.php'>Contribute</a></td>
-                  <td><form method='post' action=''><input type='submit' name='download' value='download'></form></td>
+                  <td><a class='waves-effect waves-light btn' href="functions/download.php?id=<?php echo "$JsonFile" ?>">Download</a></td>
                 </tr>
           <?php
               }
@@ -115,31 +93,24 @@ if(!isset($_SESSION['username'])) {
             }
           ?>
         </tbody>
-      </table>
-</div>
-          </div>
-    </div>
-      <div class="row center">
+        </table>
       </div>
-      <br><br>
+    </div>
+  </div>
+  <div class="row center">
+  </div>
+  <br><br>
 
-	<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
     <a class="btn-floating btn-large yellow accent-4" href="addDataset.php">
       <i class="large material-icons">add</i>
     </a>
   </div>
-    </div>
-  </div>
 
   <?php include "template/footer.php"; ?>
-  <?php
-    if (isset($_POST['download'])) {
-      echo "<script type='text/javascript'>alert('download manifest')</script>";
-    }
-  ?>
 
   <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/jquery-3.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
 
