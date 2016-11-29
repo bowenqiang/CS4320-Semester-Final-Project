@@ -102,7 +102,7 @@
   <br><br>
 
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large yellow accent-4" href="addDataset.php">
+    <a class="btn-floating btn-large yellow accent-4" href="createManifest.php">
       <i class="large material-icons">add</i>
     </a>
   </div>
