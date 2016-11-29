@@ -39,7 +39,7 @@
       <br><br>
         <form action="browseManifests.php" method="post">
           <div class='row'>
-		        <div class="input-field col s12">
+            <div class="input-field col s12">
 			        <input class=" validate col s11" name="search" type="text">
               <label for="search">Search</label>
 		          <button class=" waves-effect waves-light btn col s1" type="submit"><i class="material-icons">search</i></button>
