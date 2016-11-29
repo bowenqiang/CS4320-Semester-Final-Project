@@ -16,12 +16,16 @@ function checkPerson($dbc, $FirstName, $LastName){
 			if($result = mysqli_query($dbc, $sql_2)){
 				/* insert succeeded, query again to get PID */
 				if($result = mysqli_query($dbc, $sql)){
+					echo "<script type='text/javascript'>alert('insert succeeded')</script>";
 					if(mysqli_num_rows($result)){
 						$data=mysqli_fetch_assoc($result);
+						echo "<script type='text/javascript'>alert('requery succeeded!')</script>";
 						return $data['PID'];
 					} else { /* requery failed */
+						echo "<script type='text/javascript'>alert('requery failed')</script>";
 					}
 				} else { /* insert failed */
+					echo "<script type='text/javascript'>alert('insert failed')</script>";
 				}
 			}
 		}
