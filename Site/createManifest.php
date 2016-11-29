@@ -157,22 +157,22 @@
 					<div class="input-field col s12 form-group">
 						<label for="DsDateCreated" >Dataset Date Created</label>
 						<input id="DsDateCreated" type="date" class="validate" name="DsDateCreated">
-			    </div>
-          <div class="input-field col s12 form-group">
+			    	</div>
+                    <div class="input-field col s12 form-group">
 						<label for="JsonFile" >JSON File URL</label>
 						<input id="JsonFile" type="text" class="validate" name="JsonFile">
-			    </div>
-          <div class="input-field col s12">
-            <div class="file-field input-field">
-              <div class="btn">
-                <span>File</span>
-                <input type="file">
-              </div>
-              <div class="file-path-wrapper">
-                <input id="DataSet" class="file-path validate" type="text" placeholder="Upload a Dataset">
+			    	</div>
+            <div class="input-field col s12">
+              <div class="file-field input-field">
+                <div class="btn">
+                  <span>File</span>
+                  <input type="file">
+                </div>
+                <div class="file-path-wrapper">
+                  <input id="DataSet" class="file-path validate" type="text" placeholder="Upload a Dataset">
+                </div>
               </div>
             </div>
-          </div>
 
 					<div class="col s4">
 						<button type="submit" value="submit" class="waves-effect waves-light btn">Create</button>
