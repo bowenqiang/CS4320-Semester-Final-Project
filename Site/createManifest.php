@@ -57,22 +57,23 @@
             echo "<script type='text/javascript'>alert('ERROR: Dataset URL cannot be > 255 or 0 chars')</script>";
         }        
 
-        $sql = "SELECT PID FROM person WHERE FirstName='$FirstName' AND LastName='$LastName'";
+        //$sql = "SELECT PID FROM person WHERE FirstName='$FirstName' AND LastName='$LastName'";
 
-	
         $PID = checkPerson($dbc, $FirstName, $LastName); //from checkPerson.php
         $Creator = $PID; //just to make it obvious in the sql statement
-        $sql = "INSERT INTO manifest VALUES('$StandardVersions', DEFAULT, $Creator, now(), 
+        
+	$sql = "INSERT INTO manifest VALUES('$StandardVersions', DEFAULT, $Creator, now(), 
                 '$UploadComment', '$UploadTitle', '$DsTitle', '$DsTimeInterval', '$RetrievedTimeInterval', 
                 '$DsDateCreated', '$JsonFile', '$DataSet')"; //DEFAULT for MID since it auto-increments; can be changed depending on final implementation
-        if($result = mysqli_query($dbc, $sql)){	//Should test this for success
+        
+	if($result = mysqli_query($dbc, $sql)){	//Should test this for success
                 echo "<script type='text/javascript'>alert('Manifest created! Redirecting...')</script>";
                 echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
         }else{
                echo "<script type='text/javascript'>alert('Database insertion error! Manifest creation failed!')</script>";
                printf("dbc error: %s\n", $dbc->error);
         }
-/*
+/* //this block commented out with implementation of checkPerson function
         if($result = mysqli_query($dbc, $sql)){
             if(mysqli_num_rows($result)) {
                 $data=mysqli_fetch_assoc($result);
