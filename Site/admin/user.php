@@ -69,7 +69,7 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 					}				
 				?>				
 			</table>			
-			<div class="row">
+			<!--<div class="row">
 				<div class="col-md-4">
 
 					<div class="panel panel-info">
@@ -109,17 +109,17 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 								<button type="submit" class="btn btn-default">Submit</button>
 								<input type="hidden" name="submitted" value="1">
 							</form>
-						</div><!--END panel body-->
-					</div> <!--END panel-->
-				</div><!--END col-->
-			</div><!--END row-->
+						</div>
+					</div> 
+				</div>
+			</div>
 			
 			
 			
 			<button>Create New User</button>
 			<button>Disable User</button>
 			<button>Delete User</button>
-		</div> <!--END container-->
+		</div> -->
 	
 		<?php //include(D_TEMPLATE.'/footer.php'); ?>
 		</div>

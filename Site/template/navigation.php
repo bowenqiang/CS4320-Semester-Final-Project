@@ -6,15 +6,15 @@
 ?>
 
 <nav class="indigo" role="navigation">
-	<div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">OCDX Repository - Group 6</a>
+	<div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">OCDX Repo - Group 6</a>
 	  <ul class="right hide-on-med-and-down">
 	    <li><a href="https://github.com/JustinRenneke/CS4320-Semester-Final-Project/wiki">Git Hub</a></li>
 	    <li><a href="browseManifests.php">Search</a></li>
         <li><a href="addDataset.php">Upload</a></li>
-        <li><a href="createUser.php">Create an Account</a></li>
+        <li><a href="createUser.php">Create Account</a></li>
         <?php
             if($_SESSION['category'] == 'admin'){
-                echo '<li><a href="admin/user.php">User Management</a></li>';
+                echo '<li><a href="admin/user.php">Users</a></li>';
             }
             if(isset($_SESSION['username'])) {
                 echo '<li><a href="logout.php">Log out</a></li>';

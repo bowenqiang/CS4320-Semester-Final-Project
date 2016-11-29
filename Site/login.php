@@ -4,7 +4,6 @@ session_start();
 #Database Connection:
 include('config/connection.php');
 include('config/setup.php');
-
 if($_POST) {
 	$query="SELECT * FROM user_info WHERE AccountEmail='$_POST[email]' AND Hashword = '$_POST[password]'";
 	//$query="SELECT * FROM users WHERE email='$_POST[email]' AND password = SHA1('$_POST[password]')";
@@ -61,16 +60,16 @@ if($_POST) {
 			  		
 				<form action="login.php" method="post" role="form">
 					<div class="input-field col s12 form-group">						
-						<label for="email" >AccountEmail</label>
+						<label for="email" >Email</label>
 						<input id="email" type="text" class="validate" name="email">
 			    	</div>
 			    	<div class="input-field col s12">		        	
 						<label for="password" type="password" name="password">Password</label>
 						<input id="password" type="password" class="validate" name="password">
 					</div>
-					<div class="col s4">
+					<div class="col s8">
 						<button type="submit" value="submit" class="waves-effect waves-light btn">Login</button>
-                        <a href='createUser.php' class="waves-effect waves-light btn">Create an Account</a>
+                        <a href='createUser.php' class="waves-effect waves-light btn">Create  Account</a>
 					</div>
 				</form>
 			</div>					
