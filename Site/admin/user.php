@@ -24,6 +24,47 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 		//header('Location: user.php');
 	}
 ?>
+
+
+<?php
+if(isset($_POST['search']))
+{
+	$ValueToSearch = $_POST['ValueToSearch'];
+	$query = "SELECT * From user_info WHERE CONCAT(UserName,AccountEmail) LIKE '%".$ValueToSearch."%'";
+}else{
+	$query = "SELECT * From user_info";
+}
+
+if ($_GET['sort'] == 'userid') {
+	$query .= " ORDER BY user_id";
+}
+elseif ($_GET['sort'] == 'username') {
+	$query .= " ORDER BY UserName";
+}
+elseif ($_GET['sort'] == 'pid') {
+	$query .= " ORDER BY PID";
+}
+elseif ($_GET['sort'] == 'accountemail') {
+	$query .= " ORDER BY AccountEmail";
+}
+elseif ($_GET['sort'] == 'isactive') {
+	$query .= " ORDER BY isActive";
+}
+elseif ($_GET['sort'] == 'category') {
+	$query .= " ORDER BY Category";
+}
+$result = filterTable($query);
+
+
+
+
+function filterTable($query)
+{
+	$result = mysqli_query($dbc, $query);
+	return $result;
+}
+
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -39,6 +80,8 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 		<div class="container">
 			<h1>All users:</h1>
 
+			<input type="text" name="ValueToSearch" placeholder="Value To Search"><br><br>
+			<input type="text" name="search" value="Filter"><br><br>
 			<table class="table able-bordered" action="user.php" method="post">
 				<tr>
 					<th><a href="user.php?sort=userid">user_id</a></th>
@@ -50,26 +93,6 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 					<th><a href="user.php?sort=category">Category</a>></th>
 				</tr>
 					<?php
-					$query = "SELECT * From user_info";
-					if ($_GET['sort'] == 'userid') {
-						$query .= " ORDER BY user_id"
-					}
-					elseif ($_GET['sort'] == 'username') {
-						$query .= " ORDER BY UserName"
-					}
-					elseif ($_GET['sort'] == 'pid') {
-						$query .= " ORDER BY PID"
-					}
-					elseif ($_GET['sort'] == 'accountemail') {
-						$query .= " ORDER BY AccountEmail"
-					}
-					elseif ($_GET['sort'] == 'isactive') {
-						$query .= " ORDER BY isActive"
-					}
-					elseif ($_GET['sort'] == 'category') {
-						$query .= " ORDER BY Category"
-					}
-					$result = mysqli_query($dbc, $query);
 					while($table_user = mysqli_fetch_assoc($result)) {
 						?>
 						<tr>
