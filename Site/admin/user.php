@@ -53,17 +53,7 @@ elseif ($_GET['sort'] == 'isactive') {
 elseif ($_GET['sort'] == 'category') {
 	$query .= " ORDER BY Category";
 }
-$result = filterTable($query);
-
-
-
-
-function filterTable($query)
-{
-	$result = mysqli_query($dbc, $query);
-	return $result;
-}
-
+$result = mysqli_query($dbc, $query);
 ?>
 <!DOCTYPE html>
 <html>
@@ -79,38 +69,40 @@ function filterTable($query)
 		<?php include(D_TEMPLATE.'/navigation.php'); ?>
 		<div class="container">
 			<h1>All users:</h1>
-
-			<input type="text" name="ValueToSearch" placeholder="Value To Search"><br><br>
-			<input type="text" name="search" value="Filter"><br><br>
-			<table class="table able-bordered" action="user.php" method="post">
-				<tr>
-					<th><a href="user.php?sort=userid">user_id</a></th>
-					<th><a href="user.php?sort=username">UserName</a>></th>
-					<th><a href="user.php?sort=pid">PID</a></th>
-					<th><a href="user.php?sort=accountemail">AccountEmail</a>></th>
-					<th>Hashword</th>
-					<th><a href="user.php?sort=isactive">isActive</a></th>
-					<th><a href="user.php?sort=category">Category</a>></th>
-				</tr>
-					<?php
-					while($table_user = mysqli_fetch_assoc($result)) {
-						?>
-						<tr>
-							<td><?php echo $table_user['user_id']; ?></td>
-							<td><?php echo $table_user['UserName']; ?></td>
-							<td><?php echo $table_user['PID']; ?></td>
-							<td><?php echo $table_user['AccountEmail']; ?></td>
-							<td><?php echo $table_user['Hashword']; ?></td>
-							<td><?php echo $table_user['isActive']; ?></td>
-							<td><?php echo $table_user['Category']; ?></td>
-							<td><?php echo '<a href="edit_user.php?id='.$table_user['user_id'].'">Edit</a>' ?></td>
-							<td><?php echo '<a href="delete_user.php?id='.$table_user['user_id'].'">Delete</a>' ?></td>
-							
-						</tr>				
+			<form action="user.php" method="post">
+				<input type="text" name="ValueToSearch" placeholder="Value To Search"><br><br>
+				<input type="submit" name="search" value="Filter"><br><br>
+				<table class="table able-bordered" >
+					<tr>
+						<th><a href="user.php?sort=userid">user_id</a></th>
+						<th><a href="user.php?sort=username">UserName</a>></th>
+						<th><a href="user.php?sort=pid">PID</a></th>
+						<th><a href="user.php?sort=accountemail">AccountEmail</a>></th>
+						<th>Hashword</th>
+						<th><a href="user.php?sort=isactive">isActive</a></th>
+						<th><a href="user.php?sort=category">Category</a>></th>
+					</tr>
 						<?php
-					}				
-				?>				
-			</table>			
+						while($table_user = mysqli_fetch_assoc($result)) {
+							?>
+							<tr>
+								<td><?php echo $table_user['user_id']; ?></td>
+								<td><?php echo $table_user['UserName']; ?></td>
+								<td><?php echo $table_user['PID']; ?></td>
+								<td><?php echo $table_user['AccountEmail']; ?></td>
+								<td><?php echo $table_user['Hashword']; ?></td>
+								<td><?php echo $table_user['isActive']; ?></td>
+								<td><?php echo $table_user['Category']; ?></td>
+								<td><?php echo '<a href="edit_user.php?id='.$table_user['user_id'].'">Edit</a>' ?></td>
+								<td><?php echo '<a href="delete_user.php?id='.$table_user['user_id'].'">Delete</a>' ?></td>
+								
+							</tr>				
+							<?php
+						}				
+					?>				
+				</table>	
+				
+			</form>			
 			<!--<div class="row">
 				<div class="col-md-4">
 
