@@ -38,18 +38,37 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 		<?php include(D_TEMPLATE.'/navigation.php'); ?>
 		<div class="container">
 			<h1>All users:</h1>
+
 			<table class="table able-bordered" action="user.php" method="post">
 				<tr>
-					<th>user_id</th>
-					<th>UserName</th>
-					<th>PID</th>
-					<th>AccountEmail</th>
+					<th><a href="user.php?sort=userid">user_id</a></th>
+					<th><a href="user.php?sort=username">UserName</a>></th>
+					<th><a href="user.php?sort=pid">PID</a></th>
+					<th><a href="user.php?sort=accountemail">AccountEmail</a>></th>
 					<th>Hashword</th>
-					<th>isActive</th>
-					<th>Category</th>
+					<th><a href="user.php?sort=isactive">isActive</a></th>
+					<th><a href="user.php?sort=category">Category</a>></th>
 				</tr>
 					<?php
 					$query = "SELECT * From user_info";
+					if ($_GET['sort'] == 'userid') {
+						$query .= " ORDER BY user_id"
+					}
+					elseif ($_GET['sort'] == 'username') {
+						$query .= " ORDER BY UserName"
+					}
+					elseif ($_GET['sort'] == 'pid') {
+						$query .= " ORDER BY PID"
+					}
+					elseif ($_GET['sort'] == 'accountemail') {
+						$query .= " ORDER BY AccountEmail"
+					}
+					elseif ($_GET['sort'] == 'isactive') {
+						$query .= " ORDER BY isActive"
+					}
+					elseif ($_GET['sort'] == 'category') {
+						$query .= " ORDER BY Category"
+					}
 					$result = mysqli_query($dbc, $query);
 					while($table_user = mysqli_fetch_assoc($result)) {
 						?>
