@@ -11,7 +11,12 @@
 	    <li><a href="https://github.com/JustinRenneke/CS4320-Semester-Final-Project/wiki">Git Hub</a></li>
 	    <li><a href="browseManifests.php">Search</a></li>
         <li><a href="addDataset.php">Upload</a></li>
-        <li><a href="createUser.php">Create Account</a></li>
+        <?php
+        	if($_SESSION['category'] != 'other'){
+        		echo '<li><a href="createUser.php">Create Account</a></li>';
+        	}
+        ?>
+        
         <?php
             if($_SESSION['category'] == 'admin'){
                 echo '<li><a href="admin/user.php">Users</a></li>';
