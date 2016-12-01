@@ -32,8 +32,8 @@
             echo "<script type='text/javascript'>alert('ERROR: Upload Comment cannot be > 1000 chars')</script>";
         }        
         $UploadTitle = htmlspecialchars($_POST['UploadTitle']);
-        if(strlen($UploadTitle) > 1000){
-            echo "<script type='text/javascript'>alert('ERROR: Upload Title cannot be > 1000 chars')</script>";
+        if(strlen($UploadTitle) > 1000 || strlen($UploadTitle) == 0){
+            echo "<script type='text/javascript'>alert('ERROR: Upload Title cannot be > 1000 chars or 0 chars')</script>";
         }        
         $DsTitle = htmlspecialchars($_POST['DsTitle']);
         if(strlen($DsTitle) > 1000){
@@ -154,7 +154,7 @@
 						<label for="RetrievedTimeInterval" >Retrieved Time Interval</label>
 						<input id="RetrievedTimeInterval" type="text" class="validate" name="RetrievedTimeInterval">
 			    	</div> 
-					<div class="input-field col s12 form-group">						
+					<div class="col s12 form-group">						
 						<label for="DsDateCreated" >Dataset Date Created</label>
 						<input id="DsDateCreated" type="date" class="validate" name="DsDateCreated">
 			    	</div>					

@@ -66,15 +66,15 @@
             if(isset($_POST['search'])) {
               $radio = $_POST['searchOptions'];
               if($radio == 'name') {
-                $stmt = "SELECT UploadTitle, UploadDate, UploadComment, JsonFile From manifest WHERE UploadTitle LIKE ?";
+                $stmt = "SELECT MID, UploadTitle, UploadDate, UploadComment, JsonFile From manifest WHERE UploadTitle LIKE ?";
               } else if($radio =='date') {
-                $stmt = "SELECT UploadTitle, UploadDate, UploadComment, JsonFile FROM manifest WHERE UploadDate LIKE ?";
+                $stmt = "SELECT MID, UploadTitle, UploadDate, UploadComment, JsonFile FROM manifest WHERE UploadDate LIKE ?";
               }
               $search = "%{$_POST['search']}%";
               if($query = $dbc->prepare($stmt)) {
                 $query->bind_param("s", $search) or die("Couldnt bind parameters");
                 $query->execute() or die("coundnt execute");
-                $query->bind_result($title, $date, $comment, $JsonFile) or die("Couldnt bind results");
+                $query->bind_result($mid, $title, $date, $comment, $JsonFile) or die("Couldnt bind results");
               }
               while ($query->fetch()) {
           ?>
@@ -84,6 +84,7 @@
                   </td>
                   <td><?php echo "$date"; ?></td>
                   <td><a class='waves-effect waves-light btn' href='contribute.php'>Contribute</a></td>
+                  <td><a class='waves-effect waves-light btn' href="editManifest.php?mid=<?php echo "$mid" ?>">Edit</a></td>
                   <td><a class='waves-effect waves-light btn' href="functions/download.php?id=<?php echo "$JsonFile" ?>">Download</a></td>
                 </tr>
           <?php
