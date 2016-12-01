@@ -1,3 +1,7 @@
+<?php
+  #Start the session
+  session_start();  
+?>
 <?php include('config/setup.php'); ?>
 <?php
   if($_POST["submitted"] == 1) {           
@@ -13,7 +17,11 @@
       echo '<p>Failed to add a new user:'.mysqli_error($dbc).'</p>';
       echo '<p>'.$query.'</p>';
     }
-    header('Location: login.php');
+    if(isset($_SESSION['username']) and $_SESSION['category'] == 'admin') {
+      header('Location: admin/user.php');
+    }else{
+      header('Location: login.php');
+    }
   }
 ?>
 
