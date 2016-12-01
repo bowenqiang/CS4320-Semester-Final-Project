@@ -2,7 +2,7 @@
 Group 6
 
 Our project is currently hosted at:
-http://ec2-54-148-51-183.us-west-2.compute.amazonaws.com/
+http://ec2-54-148-51-183.us-west-2.compute.amazonaws.com/CS4320-Semester-Final-Project/Site/login.php
 
 ## Deployment
 
