@@ -275,7 +275,12 @@
       <br><br>
     </div>
   </div>
-		
+    <?php
+        
+          $query->close();
+          $dbc->close();
+        
+    ?>		
 		
 	</div>
 	
