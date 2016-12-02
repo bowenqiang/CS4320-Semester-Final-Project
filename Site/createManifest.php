@@ -54,6 +54,7 @@
 //        if(strlen($JsonFile) > 255){
 //            echo "<script type='text/javascript'>alert('ERROR: JSON File URL cannot be > 255 chars')</script>";
 //        }        
+        $JsonFile = "placeholder";
         $DataSet = "placeholder";
 //        $DataSet = htmlspecialchars($_POST['DataSet']);
 //        if(strlen($DataSet) > 255 || strlen($DataSet) == 0){
@@ -66,12 +67,12 @@
         $Creator = $PID; //just to make it obvious in the sql statement
         $sql = "INSERT INTO manifest VALUES('$StandardVersions', DEFAULT, $Creator, now(), 
                 '$UploadComment', '$UploadTitle', '$DsTitle', '$DsTimeInterval', '$RetrievedTimeInterval', 
-                '$DsDateCreated', DEFAULT, '$DataSet')"; //DEFAULT for MID since it auto-increments; can be changed depending on final implementation
+                '$DsDateCreated', '$JsonFile', '$DataSet')"; //DEFAULT for MID since it auto-increments; can be changed depending on final implementation
         if($result = mysqli_query($dbc, $sql)){	//Should test this for success
 //                echo "<script type='text/javascript'>alert('Manifest created! Redirecting...')</script>";
 
 
-            //UPLOAD THE FILE
+            //UPLOAD THE DATASET FILE
             if($_FILES['file1']){
                 
                 //we need the MID from the manifest's database entry to create a unique folder for its associated files
@@ -139,13 +140,90 @@
                     $message = $e->getMessage();
                     print "Error: $message (code = $code) <br>\n";
                 }
-                //END FILE UPLOAD BLOCK
+                
+//                echo "<script type='text/javascript'>alert('Manifest created with associated dataset! Redirecting...')</script>";
+//                echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
+            }else{
+//                echo "<script type='text/javascript'>alert('Manifest created without associating a dataset! Redirecting...')</script>";
+//                echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
+            }
+            //END DATASET UPLOAD BLOCK
+            //UPLOAD THE MANIFEST JSON
+            if($_FILES['file2']){
+                
+                //we need the MID from the manifest's database entry to create a unique folder for its associated files
+                //mid already set above
+//                $sql = "SELECT MID FROM manifest WHERE UploadTitle='$UploadTitle'"; 
+//                if($result = mysqli_query($dbc, $sql)){
+//                    $data=mysqli_fetch_assoc($result);
+//                }else{
+//                    echo "<script type='text/javascript'>alert('Database error! Manifest creation failed!')</script>";
+//                }
+//                $mid = $data['MID'];
+                    
+                $target_dir = "../ManifestFiles";
+
+                try {
+                    $upload = new Upload('file2');
+                    
+                    
+                    $fileExt = $upload->getFileExt();
+                    $fileSize = $upload->getfileSize();
+                    
+                    //the default max upload allowed by php is 2 MB, or 2097152 bytes
+                    if($fileSize > 2097152){
+                        die("That file is too big!");
+                    }  
+                    if($fileSize == 0){
+                        die("Files of size 0 are invalid!");
+                    }
+                    //try to protect against dangerous file extensions. Probably useless, but hey I tried.
+                    if($fileExt != 'json'){
+                        die("Invalid file extension!");
+                    }
+                    
+                    //temporarily set the umask so we can give any newly created directly open permissions (if we don't do this permissions = 777-22 = 755)
+                    $oldmask = umask(0);
+
+                    if(!is_dir($target_dir) && !mkdir($target_dir, 0777)){
+                        die("error creating folder $target_dir");
+                    }
+                    
+                    umask($oldmask);
+                    
+                    //create destination
+                    $destFilePath = $target_dir . '/' .$mid. '.' . $fileExt;
+
+                    $upload -> moveFile($destFilePath); //call from upload.php
+                    
+                    $sql = "UPDATE manifest SET JsonFile='$target_dir' WHERE MID='$mid'"; 
+                    if($result = mysqli_query($dbc, $sql)){
+                        $data=mysqli_fetch_assoc($result);
+                    }else{
+                        echo "<script type='text/javascript'>alert('Database error! Manifest creation failed!')</script>";
+                    }
+
+                }catch(UploadExceptionNoFile $e){
+                    print "no file was uploaded.<br>\n";
+                    $code = $e->getCode();
+                    $message = $e->getMessage();
+                    print "Error: $message (code = $code) <br>\n";
+                }
+
+                //catch any other exceptions
+                catch(UploadException $e){
+                    $code = $e->getCode();
+                    $message = $e->getMessage();
+                    print "Error: $message (code = $code) <br>\n";
+                }
+                
                 echo "<script type='text/javascript'>alert('Manifest created with associated dataset! Redirecting...')</script>";
-                echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
+//                echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
             }else{
                 echo "<script type='text/javascript'>alert('Manifest created without associating a dataset! Redirecting...')</script>";
-                echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
+//                echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
             }
+            //END MANIFEST JSON UPLOAD BLOCK
         }else{
                echo "<script type='text/javascript'>alert('Database insertion error! Manifest creation failed!')</script>";
                printf("dbc error: %s\n", $dbc->error);
@@ -236,18 +314,20 @@
 						<label for="DsDateCreated" >Dataset Date Created</label>
 						<input id="DsDateCreated" type="date" class="validate" name="DsDateCreated">
 			    	</div>					
+<!--
                     <div class="input-field col s12 form-group">						
 						<label for="JsonFile" >JSON File URL</label>
 						<input id="JsonFile" type="text" class="validate" name="JsonFile">
 			    	</div>
+-->
 <!--
 					<div class="input-field col s12 form-group">						
 						<label for="DataSet" >DataSet URL</label>
 						<input id="DataSet" type="text" class="validate" name="DataSet">
 			    	</div>
 -->
+<!--                    choose dataset to upload-->
                     <div class="row">
-<!--                        <form action="#">-->
                             <div class="input-field col s12">
                                 <div class="file-field input-field">
                                     <div class="btn">
@@ -259,7 +339,21 @@
                                     </div>
                                 </div>
                             </div>
-<!--                        </form>-->
+                    </div>
+                    
+<!--                    upload a manifest file-->
+                    <div class="row">
+                            <div class="input-field col s12">
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>Manifest JSON File</span>
+                                        <input type="file" name="file2">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Upload a Manifest JSON">
+                                    </div>
+                                </div>
+                            </div>
                     </div>
                     
                     
