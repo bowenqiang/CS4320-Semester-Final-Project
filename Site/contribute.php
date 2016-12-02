@@ -1,11 +1,96 @@
 <?php
-#Start the session
-session_start();
-if(!isset($_SESSION['username']) or $_SESSION['category'] !='other') {
-	header('Location: login.php');
-}
+    #Start the session
+    session_start();
+    if(!isset($_SESSION['username'])) {
+        header('Location: login.php');
+    }
 
-include('config/setup.php');
+    include('config/setup.php');
+    include("Upload.php");
+
+    if($_GET['mid']){
+        $mid = $_GET['mid'];
+        $_SESSION['mid'] = $mid;
+    }else{
+        $mid = $_SESSION['mid'];
+    }
+
+    //UPLOAD THE FILE
+    if($_FILES['file1']){
+
+
+        $target_dir = "../DatasetFiles/" . $mid;
+
+        try {
+            $upload = new Upload('file1');
+
+
+            $fileExt = $upload->getFileExt();
+            $fileSize = $upload->getfileSize();
+
+            //the default max upload allowed by php is 2 MB, or 2097152 bytes
+            if($fileSize > 2097152){
+                die("That file is too big!");
+            }  
+            if($fileSize == 0){
+                die("Files of size 0 are invalid!");
+            }
+            //try to protect against dangerous file extensions. Probably useless, but hey I tried.
+            if($fileExt == 'exe'){
+                die("Invalid file extension!");
+            }
+
+            //temporarily set the umask so we can give any newly created directly open permissions (if we don't do this permissions = 777-22 = 755)
+            $oldmask = umask(0);
+
+            if(!is_dir($target_dir) && !mkdir($target_dir, 0777)){
+                die("error creating folder $target_dir");
+            }
+
+            umask($oldmask);
+
+            //create destination
+            
+            //create unique absolute path
+            $directory = $target_dir . "/";
+            $filecount = 0;
+            $files = glob($directory . "*");
+            if ($files){
+                $filecount = count($files);
+            }
+            
+            $filecount++;
+            
+            $destFilePath = $target_dir . '/' . $filecount . '.' . $fileExt;
+
+            $upload -> moveFile($destFilePath); //call from upload.php
+
+            $sql = "UPDATE manifest SET DataSet='$destFilePath' WHERE MID='$mid'"; 
+            if($result = mysqli_query($dbc, $sql)){
+                $data=mysqli_fetch_assoc($result);
+            }else{
+                echo "<script type='text/javascript'>alert('Database error! Manifest creation failed!')</script>";
+            }
+
+        }catch(UploadExceptionNoFile $e){
+            print "no file was uploaded.<br>\n";
+            $code = $e->getCode();
+            $message = $e->getMessage();
+            print "Error: $message (code = $code) <br>\n";
+        }
+
+        //catch any other exceptions
+        catch(UploadException $e){
+            $code = $e->getCode();
+            $message = $e->getMessage();
+            print "Error: $message (code = $code) <br>\n";
+        }
+        //END FILE UPLOAD BLOCK
+        echo "<script type='text/javascript'>alert('Dataset successfully contributed!')</script>";
+        echo "<script type='text/javascript'>window.location = 'contribute.php'</script>";
+    }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -84,11 +169,29 @@ include('config/setup.php');
           ?>
         </tbody>
         </table>
-      <form method="post" action="">
+      <form method="post" action="contribute.php" enctype="multipart/form-data">
       <!-- <a class="btn-floating btn-large waves-effect waves-light teal lighten-2" name="add"><i class="material-icons">add</i></a> -->
-        <input type="submit" name="add" value="add" class="btn-floating btn-large teal lighten-2">
-      </form>
-
+<!--        <input type="submit" name="add" value="add" class="btn-floating btn-large teal lighten-2">-->
+<!--      </form>-->
+              
+        <div class="row">
+<!--                        <form action="#">-->
+                <div class="input-field col s12">
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>Choose Dataset</span>
+                            <input type="file" name="file1">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" placeholder="Upload a Dataset">
+                        </div>
+                    </div>
+                </div>
+<!--                        </form>-->
+        </div>
+          <button type="submit" value="submit" class="waves-effect waves-light btn">Contribute Dataset</button>
+              </form>
+              
     </div>
     </div>
       <div class="row center">
@@ -105,40 +208,10 @@ include('config/setup.php');
     </div>
   </div>
 
- <!-- <footer class="page-footer indigo">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Company Bio</h5>
-          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-
-
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>     -->
   <?php
-    if(isset($_POST['add'])){
-      echo "<script type='text/javascript'>alert('Added File.')</script>";
-    }
+//    if(isset($_POST['add'])){
+//      echo "<script type='text/javascript'>alert('Added File.')</script>";
+//    }
     if (isset($_POST['submit'])) {
       echo "<script type='text/javascript'>alert('Files Uploaded! Redirecting...')</script>";
         echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";

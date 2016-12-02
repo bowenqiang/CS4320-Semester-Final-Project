@@ -114,7 +114,7 @@
                     umask($oldmask);
                     
                     //create destination
-                    $destFilePath = $target_dir . '/test.' . $fileExt;
+                    $destFilePath = $target_dir . '/1.' . $fileExt;
 
                     $upload -> moveFile($destFilePath); //call from upload.php
                     
