@@ -153,20 +153,48 @@
         <thead>
           <tr>
               <th style='width:65%' data-field="name">Name</th>
-              <th style='width:10%' data-field="size">Size</th>
               <th style='width:25%' data-field="func"></th>
           </tr>
         </thead>
 
         <tbody style='padding: 50px 30px 50px 80px;'>
-          <?php
-            for ($i=0; $i < 5; $i++) {
-              echo "<tr>";
-              echo "<td> sampleFile".$i."</td>";
-              echo "<td> 1kb </td>";
-              echo "<td><form method='post' action=''><input type='submit' name='rename' value='rename'><input type='submit' name='remove' value='remove'></form></td>";
+            
+            
+        <?php
+            //check if the file or directory exists
+            $filename = '../DatasetFiles/' . $mid . '/';
+            if(!(file_exists($filename))){
+                print "Error: directory does not exist!\n<br>";
             }
+            //if we successfully open the directory...
+            if ($handle = opendir($filename)) {
+                //loop through and read the names of all files in the directory
+                while (false !== ($entry = readdir($handle))) {
+                    //pull the file extension from the end of each file
+                    $filename = strtolower(pathinfo($entry, PATHINFO_BASENAME));
+                    //display the filename
+                    if($filename != '.' && $filename != '..'){
+                        echo "<tr><td>$filename</td>";
+                        echo "<td><input type='submit' name='download' value='download'></form></td>";
+                    }
+                }
+                //close the directory
+                closedir($handle);
+            }else{
+                print "Error: could not open directory.";
+            }
+        ?>
+            
+            
+            
+          <?php
+//            for ($i=0; $i < 5; $i++) {
+//              echo "<tr>";
+//              echo "<td> sampleFile".$i."</td>";
+//              echo "<td><input type='submit' name='remove' value='remove'></form></td>";
+//            }
           ?>
+            
         </tbody>
         </table>
       <form method="post" action="contribute.php" enctype="multipart/form-data">

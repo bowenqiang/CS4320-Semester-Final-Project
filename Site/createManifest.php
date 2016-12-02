@@ -35,6 +35,7 @@
         $UploadTitle = htmlspecialchars($_POST['UploadTitle']);
         if(strlen($UploadTitle) > 1000 || strlen($UploadTitle) == 0){
             echo "<script type='text/javascript'>alert('ERROR: Upload Title cannot be > 1000 chars or 0 chars')</script>";
+            die("A valid upload title is required!");
         }        
         $DsTitle = htmlspecialchars($_POST['DsTitle']);
         if(strlen($DsTitle) > 1000){
