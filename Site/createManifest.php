@@ -50,10 +50,10 @@
             echo "<script type='text/javascript'>alert('ERROR: Retrieved Time Interval cannot be > 255 chars')</script>";
         }        
         $DsDateCreated = date('Y-m-d', strtotime($_POST['DsDateCreated']));
-        $JsonFile = htmlspecialchars($_POST['JsonFile']);
-        if(strlen($JsonFile) > 255){
-            echo "<script type='text/javascript'>alert('ERROR: JSON File URL cannot be > 255 chars')</script>";
-        }        
+//        $JsonFile = htmlspecialchars($_POST['JsonFile']);
+//        if(strlen($JsonFile) > 255){
+//            echo "<script type='text/javascript'>alert('ERROR: JSON File URL cannot be > 255 chars')</script>";
+//        }        
         $DataSet = "placeholder";
 //        $DataSet = htmlspecialchars($_POST['DataSet']);
 //        if(strlen($DataSet) > 255 || strlen($DataSet) == 0){
@@ -66,7 +66,7 @@
         $Creator = $PID; //just to make it obvious in the sql statement
         $sql = "INSERT INTO manifest VALUES('$StandardVersions', DEFAULT, $Creator, now(), 
                 '$UploadComment', '$UploadTitle', '$DsTitle', '$DsTimeInterval', '$RetrievedTimeInterval', 
-                '$DsDateCreated', '$JsonFile', '$DataSet')"; //DEFAULT for MID since it auto-increments; can be changed depending on final implementation
+                '$DsDateCreated', DEFAULT, '$DataSet')"; //DEFAULT for MID since it auto-increments; can be changed depending on final implementation
         if($result = mysqli_query($dbc, $sql)){	//Should test this for success
 //                echo "<script type='text/javascript'>alert('Manifest created! Redirecting...')</script>";
 

@@ -33,6 +33,7 @@
                 die("That file is too big!");
             }  
             if($fileSize == 0){
+                echo "<script type='text/javascript'>alert('Files of size 0 are invalid!')</script>";
                 die("Files of size 0 are invalid!");
             }
             //try to protect against dangerous file extensions. Probably useless, but hey I tried.

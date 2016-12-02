@@ -94,10 +94,10 @@
             echo "<script type='text/javascript'>alert('ERROR: Retrieved Time Interval cannot be > 255 chars')</script>";
         }        
         $DsDateCreated = date('Y-m-d', strtotime($_POST['DsDateCreated']));
-        $JsonFile = htmlspecialchars($_POST['JsonFile']);
-        if(strlen($JsonFile) > 255){
-            echo "<script type='text/javascript'>alert('ERROR: JSON File URL cannot be > 255 chars')</script>";
-        }        
+//        $JsonFile = htmlspecialchars($_POST['JsonFile']);
+//        if(strlen($JsonFile) > 255){
+//            echo "<script type='text/javascript'>alert('ERROR: JSON File URL cannot be > 255 chars')</script>";
+//        }        
 
 //        $DataSet = htmlspecialchars($_POST['DataSet']);
 //        if(strlen($DataSet) > 255 || strlen($DataSet) == 0){
@@ -110,7 +110,7 @@
         $Creator = $PID; //just to make it obvious in the sql statement
         	$sql = "UPDATE manifest SET StandardVersions='$StandardVersions', Creator='$Creator', UploadComment='$UploadComment',
             UploadTitle='$UploadTitle', DsTitle='$DsTitle', DsTimeInterval='$DsTimeInterval', RetrievedTimeInterval='$RetrievedTimeInterval',
-            DsDateCreated='$DsDateCreated', JsonFile='$JsonFile' WHERE MID='$mid'";
+            DsDateCreated='$DsDateCreated' WHERE MID='$mid'";
 
         
 	if($result = mysqli_query($dbc, $sql)){	//Should test this for success
