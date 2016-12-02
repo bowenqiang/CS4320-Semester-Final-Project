@@ -163,8 +163,9 @@
         <?php
             //check if the file or directory exists
             $filename = '../DatasetFiles/' . $mid . '/';
+            $directoryPath = $filename;  //save the directory path for downloading before we manipulate the filename string for display
             if(!(file_exists($filename))){
-                print "Error: directory does not exist!\n<br>";
+//                print "Error: directory does not exist!\n<br>";
             }
             //if we successfully open the directory...
             if ($handle = opendir($filename)) {
@@ -172,28 +173,19 @@
                 while (false !== ($entry = readdir($handle))) {
                     //pull the file extension from the end of each file
                     $filename = strtolower(pathinfo($entry, PATHINFO_BASENAME));
+                    $downloadPath = $directoryPath . $filename;
                     //display the filename
                     if($filename != '.' && $filename != '..'){
                         echo "<tr><td>$filename</td>";
-                        echo "<td><input type='submit' name='download' value='download'></form></td>";
+                        echo "<td><a class='waves-effect waves-light btn' href='$downloadPath' download>Download</a></td>";
                     }
                 }
                 //close the directory
                 closedir($handle);
             }else{
-                print "Error: could not open directory.";
+//                print "Error: could not open directory.";
             }
         ?>
-            
-            
-            
-          <?php
-//            for ($i=0; $i < 5; $i++) {
-//              echo "<tr>";
-//              echo "<td> sampleFile".$i."</td>";
-//              echo "<td><input type='submit' name='remove' value='remove'></form></td>";
-//            }
-          ?>
             
         </tbody>
         </table>
