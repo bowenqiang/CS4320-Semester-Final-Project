@@ -118,7 +118,7 @@
 
                     $upload -> moveFile($destFilePath); //call from upload.php
                     
-                    $sql = "UPDATE manifest SET DataSet='$destFilePath' WHERE MID='$mid'"; 
+                    $sql = "UPDATE manifest SET DataSet='$target_dir' WHERE MID='$mid'"; 
                     if($result = mysqli_query($dbc, $sql)){
                         $data=mysqli_fetch_assoc($result);
                     }else{

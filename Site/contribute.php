@@ -40,7 +40,7 @@
                 die("Invalid file extension!");
             }
 
-            //temporarily set the umask so we can give any newly created directly open permissions (if we don't do this permissions = 777-22 = 755)
+            //temporarily set the umask so we can give any newly created directory open permissions (if we don't do this permissions = 777-22 = 755)
             $oldmask = umask(0);
 
             if(!is_dir($target_dir) && !mkdir($target_dir, 0777)){
@@ -65,7 +65,7 @@
 
             $upload -> moveFile($destFilePath); //call from upload.php
 
-            $sql = "UPDATE manifest SET DataSet='$destFilePath' WHERE MID='$mid'"; 
+            $sql = "UPDATE manifest SET DataSet='$target_dir' WHERE MID='$mid'"; 
             if($result = mysqli_query($dbc, $sql)){
                 $data=mysqli_fetch_assoc($result);
             }else{
