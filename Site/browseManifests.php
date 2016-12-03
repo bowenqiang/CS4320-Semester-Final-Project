@@ -10,7 +10,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Software Engineering</title>
+  <title>Search Repository</title>
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
@@ -83,7 +83,7 @@
                     <p><?php echo "$comment"; ?></p>
                   </td>
                   <td><?php echo "$date"; ?></td>
-                  <td><a class='waves-effect waves-light btn' href="contribute.php?mid=<?php echo "$mid" ?>">Contribute</a></td>
+                  <td><a class='waves-effect waves-light btn' href="contribute.php?mid=<?php echo "$mid" ?>">Datasets</a></td>
                   <td><a class='waves-effect waves-light btn' href="editManifest.php?mid=<?php echo "$mid" ?>">Edit</a></td>
                   <td><a class='waves-effect waves-light btn' href='<?php echo "../ManifestFiles/$mid.json"?>' download>Download</a></td>
 <!--                  <td><a class='waves-effect waves-light btn' href="functions/download.php?id=<?php/* echo "$JsonFile" */?>">Download</a></td>-->

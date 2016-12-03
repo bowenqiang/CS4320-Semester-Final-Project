@@ -100,7 +100,7 @@
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Contribute</title>
+  <title>Datasets</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -148,7 +148,7 @@
       <br><br>
       <div class="row">
 		  <div class="input-field col s12">
-		  	<h3>File Upload List</h3>
+		  	<h5>Datasets Associated with this Manifest:</h5>
 
 			  <table class="highlight">
         <thead>
@@ -190,6 +190,7 @@
             
         </tbody>
         </table>
+              <h5>Would you like to contribute a dataset to this manifest?</h5>
       <form method="post" action="contribute.php" enctype="multipart/form-data">
       <!-- <a class="btn-floating btn-large waves-effect waves-light teal lighten-2" name="add"><i class="material-icons">add</i></a> -->
 <!--        <input type="submit" name="add" value="add" class="btn-floating btn-large teal lighten-2">-->
