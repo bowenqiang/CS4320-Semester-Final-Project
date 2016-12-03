@@ -19,35 +19,36 @@
         $StandardVersions = htmlspecialchars($_POST['StandardVersions']);
         if(strlen($StandardVersions) > 255){
             echo "<script type='text/javascript'>alert('ERROR: Standard Versions cannot be > 255 chars')</script>";
+            header('Location: createManifest.php');
+            die();
         }
         $FirstName = htmlspecialchars($_POST['FirstName']);
         if(strlen($FirstName) > 255 || strlen($FirstName) == 0){
-            echo "<script type='text/javascript'>alert('ERROR: First Name cannot be > 255 or 0 chars')</script>";
+            die('<script type="text/javascript">alert("ERROR: First Name cannot be > 255 or 0 chars");location.replace("createManifest.php")</script>');
         }        
         $LastName = htmlspecialchars($_POST['LastName']);
         if(strlen($LastName) > 255 || strlen($LastName) == 0){
-            echo "<script type='text/javascript'>alert('ERROR: Last Name cannot be > 255 or 0 chars')</script>";
+            die('<script type="text/javascript">alert("ERROR: Last Name cannot be > 255 or 0 chars");location.replace("createManifest.php")</script>');
         }        
         $UploadComment = htmlspecialchars($_POST['UploadComment']);
         if(strlen($UploadComment) > 1000){
-            echo "<script type='text/javascript'>alert('ERROR: Upload Comment cannot be > 1000 chars')</script>";
+            die('<script type="text/javascript">alert("ERROR: Upload Comment cannot be > 1000 chars");location.replace("createManifest.php")</script>');
         }        
         $UploadTitle = htmlspecialchars($_POST['UploadTitle']);
         if(strlen($UploadTitle) > 1000 || strlen($UploadTitle) == 0){
-            echo "<script type='text/javascript'>alert('ERROR: Upload Title cannot be > 1000 chars or 0 chars')</script>";
-            die("A valid upload title is required!");
+            die('<script type="text/javascript">alert("ERROR: Upload Title cannot be > 1000 chars or 0 chars");location.replace("createManifest.php")</script>');
         }        
         $DsTitle = htmlspecialchars($_POST['DsTitle']);
         if(strlen($DsTitle) > 1000){
-            echo "<script type='text/javascript'>alert('ERROR: Dataset Title cannot be > 1000 chars')</script>";
+            die('<script type="text/javascript">alert("ERROR: Dataset Title cannot be > 1000 chars");location.replace("createManifest.php")</script>');
         }        
         $DsTimeInterval = htmlspecialchars($_POST['DsTimeInterval']);
         if(strlen($DsTimeInterval) > 255){
-            echo "<script type='text/javascript'>alert('ERROR: Dataset Time Interval cannot be > 255 chars')</script>";
+            die('<script type="text/javascript">alert("ERROR: Dataset Time Interval cannot be > 255 chars");location.replace("createManifest.php")</script>');
         }
         $RetrievedTimeInterval = htmlspecialchars($_POST['RetrievedTimeInterval']);
         if(strlen($RetrievedTimeInterval) > 255){
-            echo "<script type='text/javascript'>alert('ERROR: Retrieved Time Interval cannot be > 255 chars')</script>";
+            die('<script type="text/javascript">alert("ERROR: Retrieved Time Interval cannot be > 255 chars");location.replace("createManifest.php")</script>');
         }        
         $DsDateCreated = date('Y-m-d', strtotime($_POST['DsDateCreated']));
 //        $JsonFile = htmlspecialchars($_POST['JsonFile']);
@@ -264,6 +265,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
 		<?php include('config/css.php'); ?>
 		<?php include('config/js.php'); ?>		
+        
+        <script>
+            function validate(){
+                var inp = document.getElementById('manifestJSON');
+                if(inp.files.length == 0){
+                    alert("A manifest json file is required!");
+                    inp.focus();
+                    return false;
+                }
+            }
+        </script>
 </head>
 <body class='indigo lighten-5'>
 	<?php include(D_TEMPLATE.'/navigation.php'); ?>
@@ -271,19 +283,27 @@
 	<div>
 		<div class="section" id="index-banner">
     <div class="white z-depth-1 container" style='padding: 1% 1% 1% 1%;'>
+        <h3>Create Manifest</h3>
+        <br>
+        <h5>Getting Started:</h5>
+        <span>
+            To create a manifest you must have a manifest.json file prepared. If you do not already have this file,
+            you may download a template <a href='../ManifestFiles/manifest_template.json'>here</a>. 
+            A complete example with instructions is provided <a href='../ManifestFiles/manifest_instructions.json'>here</a>.
+            Please complete the form below (fields marked with an asterisk are required) and include your manifest.json file.
+        </span>
       <br><br>
       <div class="row">
       		<div class="col s4">
-      			<h3>Create Manifest</h3>
       		</div>
 
-				<form action="createManifest.php" method="post" role="form" enctype="multipart/form-data">
+				<form action="createManifest.php" method="post" role="form" enctype="multipart/form-data" onsubmit="return(validate());">
 					<div class="input-field col s12 form-group">						
-						<label for="FirstName" >Author's First Name</label>
+						<label for="FirstName" >Author's First Name*</label>
 						<input id="FirstName" type="text" class="validate" name="FirstName">
 			    	</div>
 			    	<div class="input-field col s12 form-group">		        	
-						<label for="LastName" type="text">Author's Last Name</label>
+						<label for="LastName" type="text">Author's Last Name*</label>
 						<input id="LastName" type="text" class="validate" name="LastName">
 					</div>
 					<div class="input-field col s12 form-group">						
@@ -291,7 +311,7 @@
 						<input id="StandardVersions" type="text" class="validate" name="StandardVersions">
 			    	</div>
 					<div class="input-field col s12 form-group">						
-						<label for="UploadTitle" >Upload Title</label>
+						<label for="UploadTitle" >Upload Title*</label>
 						<input id="UploadTitle" type="text" class="validate" name="UploadTitle">
 			    	</div>
 			    	<div class="input-field col s12 form-group">		        	
@@ -347,7 +367,7 @@
                                 <div class="file-field input-field">
                                     <div class="btn">
                                         <span>Manifest JSON File</span>
-                                        <input type="file" name="file2">
+                                        <input type="file" name="file2" id="manifestJSON">
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text" placeholder="Upload a Manifest JSON">
