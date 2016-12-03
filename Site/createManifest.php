@@ -129,17 +129,17 @@
                     }
 
                 }catch(UploadExceptionNoFile $e){
-                    print "no file was uploaded.<br>\n";
-                    $code = $e->getCode();
-                    $message = $e->getMessage();
-                    print "Error: $message (code = $code) <br>\n";
+//                    print "no file was uploaded.<br>\n";
+//                    $code = $e->getCode();
+//                    $message = $e->getMessage();
+//                    print "Error: $message (code = $code) <br>\n";
                 }
 
                 //catch any other exceptions
                 catch(UploadException $e){
-                    $code = $e->getCode();
-                    $message = $e->getMessage();
-                    print "Error: $message (code = $code) <br>\n";
+//                    $code = $e->getCode();
+//                    $message = $e->getMessage();
+//                    print "Error: $message (code = $code) <br>\n";
                 }
                 
 //                echo "<script type='text/javascript'>alert('Manifest created with associated dataset! Redirecting...')</script>";
@@ -267,8 +267,10 @@
 		<?php include('config/js.php'); ?>		
         
         <script>
+
+            
             function validate(){
-                var inp = document.getElementById('manifestJSON');
+                var inp = document.getElementById('upload');
                 if(inp.files.length == 0){
                     alert("A manifest json file is required!");
                     inp.focus();
@@ -367,7 +369,7 @@
                                 <div class="file-field input-field">
                                     <div class="btn">
                                         <span>Manifest JSON File</span>
-                                        <input type="file" name="file2" id="manifestJSON">
+                                        <input type="file" name="file2" id="upload">
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text" placeholder="Upload a Manifest JSON">
