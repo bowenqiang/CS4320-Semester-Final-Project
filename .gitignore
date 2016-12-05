@@ -2,3 +2,5 @@
 .DS_Store
 Site/config/connection.php
 Site/admin/config/connection.php
+DatasetFiles/
+ManifestFiles/
