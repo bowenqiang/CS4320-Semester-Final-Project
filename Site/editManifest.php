@@ -20,8 +20,7 @@
     }else{
         $mid = $_SESSION['mid'];
     }
-    print "mid: ".$mid ."<br>\n";
-    print "Session[mid]: " . $_SESSION['mid'] . "<br>\n";
+
 
     $sql = "SELECT * FROM manifest WHERE MID = '$mid'";
 
@@ -41,7 +40,6 @@
         $RetrievedTimeInterval = $data['RetrievedTimeInterval'];
         $DsDateCreated = $data['DsDateCreated'];
         $JsonFile = $data['JsonFile'];
-        $DataSet = $data['DataSet'];
     }
 
     $sql = "SELECT * FROM person WHERE PID='$Creator'";
@@ -96,22 +94,23 @@
             echo "<script type='text/javascript'>alert('ERROR: Retrieved Time Interval cannot be > 255 chars')</script>";
         }        
         $DsDateCreated = date('Y-m-d', strtotime($_POST['DsDateCreated']));
-        $JsonFile = htmlspecialchars($_POST['JsonFile']);
-        if(strlen($JsonFile) > 255){
-            echo "<script type='text/javascript'>alert('ERROR: JSON File URL cannot be > 255 chars')</script>";
-        }        
-        $DataSet = htmlspecialchars($_POST['DataSet']);
-        if(strlen($DataSet) > 255 || strlen($DataSet) == 0){
-            echo "<script type='text/javascript'>alert('ERROR: Dataset URL cannot be > 255 or 0 chars')</script>";
-        }        
+//        $JsonFile = htmlspecialchars($_POST['JsonFile']);
+//        if(strlen($JsonFile) > 255){
+//            echo "<script type='text/javascript'>alert('ERROR: JSON File URL cannot be > 255 chars')</script>";
+//        }        
+
+//        $DataSet = htmlspecialchars($_POST['DataSet']);
+//        if(strlen($DataSet) > 255 || strlen($DataSet) == 0){
+//            echo "<script type='text/javascript'>alert('ERROR: Dataset URL cannot be > 255 or 0 chars')</script>";
+//        }        
 
         //$sql = "SELECT PID FROM person WHERE FirstName='$FirstName' AND LastName='$LastName'";
 
         $PID = checkPerson($dbc, $FirstName, $LastName); //from checkPerson.php
         $Creator = $PID; //just to make it obvious in the sql statement
-        	$sql = "UPDATE manifest SET StandardVersions='$StandardVersions', Creator='$Creator', UploadDate=now(), UploadComment='$UploadComment',
+        	$sql = "UPDATE manifest SET StandardVersions='$StandardVersions', Creator='$Creator', UploadComment='$UploadComment',
             UploadTitle='$UploadTitle', DsTitle='$DsTitle', DsTimeInterval='$DsTimeInterval', RetrievedTimeInterval='$RetrievedTimeInterval',
-            DsDateCreated='$DsDateCreated', JsonFile='$JsonFile', DataSet='$DataSet' WHERE MID='$mid'";
+            DsDateCreated='$DsDateCreated' WHERE MID='$mid'";
 
         
 	if($result = mysqli_query($dbc, $sql)){	//Should test this for success
@@ -204,15 +203,11 @@
 			    	</div> 
 					<div class=" col s12 form-group">						
 						<label for="DsDateCreated" >Dataset Date Created</label>
-						<input id="DsDateCreated" type="date" class="validate" name="DsDateCreated" value="<?php echo "$DsDateCreated" ?>">
+						<input id="DsDateCreated" type="date" class="validate" name="DsDateCreated" value="<?php echo "$DsDateCreated" ?>" readonly>
 			    	</div>					
                     <div class="input-field col s12 form-group">						
 						<label for="JsonFile" >JSON File URL</label>
 						<input id="JsonFile" type="text" class="validate" name="JsonFile" value="<?php echo "$JsonFile" ?>">
-			    	</div>
-					<div class="input-field col s12 form-group">						
-						<label for="DataSet" >DataSet URL</label>
-						<input id="DataSet" type="text" class="validate" name="DataSet" value="<?php echo "$DataSet" ?>">
 			    	</div>
                     
 					<div class="col s4">
