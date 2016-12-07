@@ -11,7 +11,7 @@
       //echo '<p>User was added!</p>';
       $name = $_POST['fName'] . ' ' . $_POST['lName'];
 
-      $query = "INSERT INTO user_info(UserName, PID, AccountEmail, Hashword) VALUES ('$name', LAST_INSERT_ID(), '$_POST[email]', '$_POST[password]')";
+      $query = "INSERT INTO user_info(UserName, PID, AccountEmail, Hashword) VALUES ('$name', LAST_INSERT_ID(), '$_POST[email]', SHA1('$_POST[password]'))";
       $result = mysqli_query($dbc,$query);
     } else {
       echo '<p>Failed to add a new user:'.mysqli_error($dbc).'</p>';
