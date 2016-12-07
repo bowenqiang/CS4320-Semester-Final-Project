@@ -319,8 +319,11 @@
                 </div>
 <!--                        </form>-->
         </div>
-          <button type="submit" value="submit" class="waves-effect waves-light btn">Contribute Files</button>
-              </form>
+	<div class="col s5">
+          <button type="submit" value="submit" class="waves-effect waves-light btn">Contribute</button>
+	<a href='browseManifests.php' class="waves-effect waves-light btn">Cancel</a>
+	</div>      
+        </form>
               
     </div>
     </div>
@@ -330,8 +333,7 @@
 
     	<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
         <form method="post" action="">
-           <a href='browseManifests.php' class="btn-floating btn-large yellow accent-4">Cancel</a>
-        </form>
+       </form>
       </div>
 
     </div>

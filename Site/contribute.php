@@ -177,8 +177,10 @@
                 </div>
 <!--                        </form>-->
         </div>
-          <button type="submit" value="submit" class="waves-effect waves-light btn">Contribute Dataset</button>
-              </form>
+		<div class='col s7'>
+          <button type="submit" value="submit" class="waves-effect waves-light btn">Contribute</button>
+        <a href='browseManifests.php' class="waves-effect waves-light btn">Cancel</a>      
+	</form>
               
     </div>
     </div>
@@ -188,7 +190,6 @@
 
     	<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
         <form method="post" action="">
-           <a href='browseManifests.php' class="btn-floating btn-large yellow accent-4">Cancel</a>
         </form>
       </div>
 

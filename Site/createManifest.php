@@ -506,7 +506,7 @@
 			    	</div>
 -->
 <!--                    choose dataset to upload-->
-                    <div class="row">
+                    
                             <div class="input-field col s12">
                                 <div class="file-field input-field">
                                     <div class="btn">
@@ -518,9 +518,9 @@
                                     </div>
                                 </div>
                             </div>
-                    </div>
+                    
 <!--                    choose a script to upload-->
-                    <div class="row">
+                    
                             <div class="input-field col s12">
                                 <div class="file-field input-field">
                                     <div class="btn">
@@ -532,9 +532,9 @@
                                     </div>
                                 </div>
                             </div>
-                    </div>   
+                       
 <!--                    choose a config to upload-->
-                    <div class="row">
+                  
                             <div class="input-field col s12">
                                 <div class="file-field input-field">
                                     <div class="btn">
@@ -546,10 +546,10 @@
                                     </div>
                                 </div>
                             </div>
-                    </div>                    
+                                        
                     
 <!--                    upload a manifest file-->
-                    <div class="row">
+                    
                             <div class="input-field col s12">
                                 <div class="file-field input-field">
                                     <div class="btn">
@@ -561,7 +561,7 @@
                                     </div>
                                 </div>
                             </div>
-                    </div>
+                    
                     
                     
                     
