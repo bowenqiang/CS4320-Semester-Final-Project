@@ -120,6 +120,7 @@
                     $destFilePath = $target_dir . '/1.' . $fileExt;
 
                     $upload -> moveFile($destFilePath); //call from upload.php
+                    chmod($destFilePath, 777);
                     
                     $sql = "UPDATE manifest SET DataSet='$target_dir' WHERE MID='$mid'"; 
                     if($result = mysqli_query($dbc, $sql)){
@@ -196,6 +197,7 @@
                     $destFilePath = $target_dir . '/' .$mid. '.' . $fileExt;
 
                     $upload -> moveFile($destFilePath); //call from upload.php
+                    chmod($destFilePath, 777);
                     
                     $sql = "UPDATE manifest SET JsonFile='$target_dir' WHERE MID='$mid'"; 
                     if($result = mysqli_query($dbc, $sql)){
