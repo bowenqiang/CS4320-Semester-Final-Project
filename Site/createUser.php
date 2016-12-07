@@ -35,22 +35,27 @@
   }
 #email validation
   if (empty($_POST["email"])) {
-  $emailErr = "Email is required";
-  $hasErr = 1;
-  } else {
-  $email = test_input($_POST["email"]);
-  // check if e-mail address is well-formed
-  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $emailErr = "Invalid email format";
-      $hasErr = 1; 
-    }
-
-  $query = "SELECT * FROM user_info WHERE Email='$email' ";
-  $result = mysqli_query($dbc,$query);
-  if(mysqli_num_rows($result) > 0)
-    $emailErr = "Email has been used, try another one";
+    $emailErr = "Email is required";
     $hasErr = 1;
+  } else {
+    $email = test_input($_POST["email"]);
+    // check if e-mail address is well-formed
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $emailErr = "Invalid email format";
+        $hasErr = 1; 
+      } else {
+          $query = "SELECT * FROM user_info WHERE AccountEmail='$email' ";
+          $result = mysqli_query($dbc,$query);
+          if(mysqli_num_rows($result) > 0){
+            $emailErr = "Email has been used, try another one";
+            $hasErr = 1;
+          }
+
+
+      }
   }
+
+
 #phone validation
   if(empty($_POST["phone"])) {
 
@@ -109,7 +114,7 @@ if($hasErr == 0)
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login</title>
+  <title>Create New User</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <?php include('config/css.php'); ?>
@@ -173,4 +178,3 @@ if($hasErr == 0)
 <?php include(D_TEMPLATE.'/footer.php'); ?>
 </body>
 </html>
-
