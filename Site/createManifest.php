@@ -17,11 +17,11 @@
 
     if($_POST) {
         $StandardVersions = htmlspecialchars($_POST['StandardVersions']);
-        if(strlen($StandardVersions) > 255){
-            echo "<script type='text/javascript'>alert('ERROR: Standard Versions cannot be > 255 chars')</script>";
-            header('Location: createManifest.php');
-            die();
-        }
+//        if(strlen($StandardVersions) > 255){
+//            echo "<script type='text/javascript'>alert('ERROR: Standard Versions cannot be > 255 chars')</script>";
+//            header('Location: createManifest.php');
+//            die();
+//        }
         $FirstName = htmlspecialchars($_POST['FirstName']);
         if(strlen($FirstName) > 255 || strlen($FirstName) == 0){
             die('<script type="text/javascript">alert("ERROR: First Name cannot be > 255 or 0 chars");location.replace("createManifest.php")</script>');
@@ -42,14 +42,14 @@
         if(strlen($DsTitle) > 1000){
             die('<script type="text/javascript">alert("ERROR: Dataset Title cannot be > 1000 chars");location.replace("createManifest.php")</script>');
         }        
-        $DsTimeInterval = htmlspecialchars($_POST['DsTimeInterval']);
-        if(strlen($DsTimeInterval) > 255){
-            die('<script type="text/javascript">alert("ERROR: Dataset Time Interval cannot be > 255 chars");location.replace("createManifest.php")</script>');
-        }
-        $RetrievedTimeInterval = htmlspecialchars($_POST['RetrievedTimeInterval']);
-        if(strlen($RetrievedTimeInterval) > 255){
-            die('<script type="text/javascript">alert("ERROR: Retrieved Time Interval cannot be > 255 chars");location.replace("createManifest.php")</script>');
-        }        
+//        $DsTimeInterval = htmlspecialchars($_POST['DsTimeInterval']);
+//        if(strlen($DsTimeInterval) > 255){
+//            die('<script type="text/javascript">alert("ERROR: Dataset Time Interval cannot be > 255 chars");location.replace("createManifest.php")</script>');
+//        }
+//        $RetrievedTimeInterval = htmlspecialchars($_POST['RetrievedTimeInterval']);
+//        if(strlen($RetrievedTimeInterval) > 255){
+//            die('<script type="text/javascript">alert("ERROR: Retrieved Time Interval cannot be > 255 chars");location.replace("createManifest.php")</script>');
+//        }        
         $DsDateCreated = date('Y-m-d', strtotime($_POST['DsDateCreated']));
 //        $JsonFile = htmlspecialchars($_POST['JsonFile']);
 //        if(strlen($JsonFile) > 255){
@@ -103,7 +103,7 @@
                         die("Files of size 0 are invalid!");
                     }
                     //try to protect against dangerous file extensions. Probably useless, but hey I tried.
-                    if($fileExt == 'exe'){
+                    if($fileExt == 'exe' || $fileExt == 'php' || $fileExt == 'html'){
                         die("Invalid file extension!");
                     }
                     
@@ -150,6 +150,151 @@
 //                echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
             }
             //END DATASET UPLOAD BLOCK
+            
+            //UPLOAD THE SCRIPT FILE
+            if($_FILES['file3']){
+                
+                //we need the MID from the manifest's database entry to create a unique folder for its associated files
+                
+
+                    
+                $target_dir = "../ScriptFiles/" . $mid;
+
+                try {
+                    $upload = new Upload('file3');
+                    
+                    
+                    $fileExt = $upload->getFileExt();
+                    $fileSize = $upload->getfileSize();
+                    
+                    //the default max upload allowed by php is 2 MB, or 2097152 bytes
+                    if($fileSize > 2097152){
+                        die("That file is too big!");
+                    }  
+                    if($fileSize == 0){
+                        die("Files of size 0 are invalid!");
+                    }
+                    //try to protect against dangerous file extensions. Probably useless, but hey I tried.
+                    if($fileExt == 'exe' || $fileExt == 'php' || $fileExt == 'html'){
+                        die("Invalid file extension!");
+                    }
+                    
+                    //temporarily set the umask so we can give any newly created directly open permissions (if we don't do this permissions = 777-22 = 755)
+                    $oldmask = umask(0);
+
+                    if(!is_dir($target_dir) && !mkdir($target_dir, 0777)){
+                        die("error creating folder $target_dir");
+                    }
+                    
+                    umask($oldmask);
+                    
+                    //create destination
+                    $destFilePath = $target_dir . '/1.' . $fileExt;
+
+                    $upload -> moveFile($destFilePath); //call from upload.php
+                    chmod($destFilePath, 777);
+                    
+//                    $sql = "UPDATE manifest SET DataSet='$target_dir' WHERE MID='$mid'"; 
+//                    if($result = mysqli_query($dbc, $sql)){
+//                        $data=mysqli_fetch_assoc($result);
+//                    }else{
+//                        echo "<script type='text/javascript'>alert('Database error! Manifest creation failed!')</script>";
+//                    }
+
+                }catch(UploadExceptionNoFile $e){
+//                    print "no file was uploaded.<br>\n";
+//                    $code = $e->getCode();
+//                    $message = $e->getMessage();
+//                    print "Error: $message (code = $code) <br>\n";
+                }
+
+                //catch any other exceptions
+                catch(UploadException $e){
+//                    $code = $e->getCode();
+//                    $message = $e->getMessage();
+//                    print "Error: $message (code = $code) <br>\n";
+                }
+                
+//                echo "<script type='text/javascript'>alert('Manifest created with associated dataset! Redirecting...')</script>";
+//                echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
+            }else{
+//                echo "<script type='text/javascript'>alert('Manifest created without associating a dataset! Redirecting...')</script>";
+//                echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
+            }
+            //END SCRIPT UPLOAD BLOCK     
+            
+            //UPLOAD THE CONFIG FILE
+            if($_FILES['file4']){
+                
+                //we need the MID from the manifest's database entry to create a unique folder for its associated files
+
+                    
+                $target_dir = "../ConfigFiles/" . $mid;
+
+                try {
+                    $upload = new Upload('file4');
+                    
+                    
+                    $fileExt = $upload->getFileExt();
+                    $fileSize = $upload->getfileSize();
+                    
+                    //the default max upload allowed by php is 2 MB, or 2097152 bytes
+                    if($fileSize > 2097152){
+                        die("That file is too big!");
+                    }  
+                    if($fileSize == 0){
+                        die("Files of size 0 are invalid!");
+                    }
+                    //try to protect against dangerous file extensions. Probably useless, but hey I tried.
+                    if($fileExt == 'exe' || $fileExt == 'php' || $fileExt == 'html'){
+                        die("Invalid file extension!");
+                    }
+                    
+                    //temporarily set the umask so we can give any newly created directly open permissions (if we don't do this permissions = 777-22 = 755)
+                    $oldmask = umask(0);
+
+                    if(!is_dir($target_dir) && !mkdir($target_dir, 0777)){
+                        die("error creating folder $target_dir");
+                    }
+                    
+                    umask($oldmask);
+                    
+                    //create destination
+                    $destFilePath = $target_dir . '/1.' . $fileExt;
+
+                    $upload -> moveFile($destFilePath); //call from upload.php
+                    chmod($destFilePath, 777);
+                    
+//                    $sql = "UPDATE manifest SET DataSet='$target_dir' WHERE MID='$mid'"; 
+//                    if($result = mysqli_query($dbc, $sql)){
+//                        $data=mysqli_fetch_assoc($result);
+//                    }else{
+//                        echo "<script type='text/javascript'>alert('Database error! Manifest creation failed!')</script>";
+//                    }
+
+                }catch(UploadExceptionNoFile $e){
+//                    print "no file was uploaded.<br>\n";
+//                    $code = $e->getCode();
+//                    $message = $e->getMessage();
+//                    print "Error: $message (code = $code) <br>\n";
+                }
+
+                //catch any other exceptions
+                catch(UploadException $e){
+//                    $code = $e->getCode();
+//                    $message = $e->getMessage();
+//                    print "Error: $message (code = $code) <br>\n";
+                }
+                
+//                echo "<script type='text/javascript'>alert('Manifest created with associated dataset! Redirecting...')</script>";
+//                echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
+            }else{
+//                echo "<script type='text/javascript'>alert('Manifest created without associating a dataset! Redirecting...')</script>";
+//                echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
+            }
+            //END CONFIG UPLOAD BLOCK            
+            
+            
             //UPLOAD THE MANIFEST JSON
             if($_FILES['file2']){
                 
@@ -292,8 +437,9 @@
         <h5>Getting Started:</h5>
         <span>
             To create a manifest you must have a manifest.json file prepared. If you do not already have this file,
-            you may download a template <a href='../ManifestFiles/manifest_template.json'>here</a>. 
-            A complete example with instructions is provided <a href='../ManifestFiles/manifest_instructions.json'>here</a>.
+            you may <a href='../ManifestFiles/manifest_template.json'>view</a> or <a href='../ManifestFiles/manifest_template.json' download>download</a> a template. 
+            A complete example with instructions is also available to <a href='../ManifestFiles/manifest_instructions.json'>view</a> or
+            <a href='../ManifestFiles/manifest_instructions.json' download>download</a>.
             Please complete the form below (fields marked with an asterisk are required) and include your manifest.json file.
         </span>
       <br><br>
@@ -310,10 +456,12 @@
 						<label for="LastName" type="text">Author's Last Name*</label>
 						<input id="LastName" type="text" class="validate" name="LastName">
 					</div>
+<!--
 					<div class="input-field col s12 form-group">						
 						<label for="StandardVersions" >Standard Versions</label>
 						<input id="StandardVersions" type="text" class="validate" name="StandardVersions">
 			    	</div>
+-->
 					<div class="input-field col s12 form-group">						
 						<label for="UploadTitle" >Upload Title*</label>
 						<input id="UploadTitle" type="text" class="validate" name="UploadTitle">
@@ -326,14 +474,18 @@
 						<label for="DsTitle" >Dataset Title</label>
 						<input id="DsTitle" type="text" class="validate" name="DsTitle">
 			    	</div>
+<!--
 					<div class="input-field col s12 form-group">						
 						<label for="DsTimeInterval" >Dataset Time Interval</label>
 						<input id="DsTimeInterval" type="text" class="validate" name="DsTimeInterval">
 			    	</div>
+-->
+<!--
 					<div class="input-field col s12 form-group">						
 						<label for="RetrievedTimeInterval" >Retrieved Time Interval</label>
 						<input id="RetrievedTimeInterval" type="text" class="validate" name="RetrievedTimeInterval">
 			    	</div> 
+-->
 					<div class="col s12 form-group">						
 						<label for="DsDateCreated" >Dataset Date Created</label>
 						<input id="DsDateCreated" type="date" class="validate" name="DsDateCreated">
@@ -364,13 +516,41 @@
                                 </div>
                             </div>
                     </div>
+<!--                    choose a script to upload-->
+                    <div class="row">
+                            <div class="input-field col s12">
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>Script File</span>
+                                        <input type="file" name="file3">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Upload a Script">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>   
+<!--                    choose a config to upload-->
+                    <div class="row">
+                            <div class="input-field col s12">
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>Config File</span>
+                                        <input type="file" name="file4">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Upload a Config File">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>                    
                     
 <!--                    upload a manifest file-->
                     <div class="row">
                             <div class="input-field col s12">
                                 <div class="file-field input-field">
                                     <div class="btn">
-                                        <span>Manifest JSON File</span>
+                                        <span>Manifest JSON File*</span>
                                         <input type="file" name="file2" id="upload">
                                     </div>
                                     <div class="file-path-wrapper">
