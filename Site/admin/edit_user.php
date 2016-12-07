@@ -37,20 +37,19 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>User Management .' | '.$site_title; ?></title>
+		<title>User Management | User Editing</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<?php include('config/css.php'); ?>
 		<?php include('config/js.php'); ?>				
 	</head>
-	<body>
-		<?php include(D_TEMPLATE.'/navigation.php'); ?>	
+	<body class='indigo lighten-5'>
 		<div class="container">			
 			<div class="wrap">
 				<div class="row">
 					<div class="col-md-4">
 						<div class="panel panel-info">
 							<div class="panel-heading">
-								<h5>Create New User</h5>
+								<h5>Edit User</h5>
 							</div>
 							<div class="panel-body">
 								<form action="edit_user.php" method="post" role="form">
@@ -71,8 +70,6 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 										<select class="form-control" id="Category" name="category" <?php echo 'value="'.$data['Category'].'"'?>>
 											<option>admin</option>
 											<option>other</option>
-											<option>3</option>
-											<option>4</option>
 										</select>
 									</div>								
 									<div class="form-group">
