@@ -12,11 +12,6 @@
       <li><a href="https://github.com/JustinRenneke/CS4320-Semester-Final-Project/wiki">Repo Git Hub</a></li>
 	    <li><a href="browseManifests.php">Search</a></li>
         <li><a href="createManifest.php">Upload Manifest</a></li>
-        <?php
-        	if($_SESSION['category'] != 'other'){
-        		echo '<li><a href="createUser.php">Create Account</a></li>';
-        	}
-        ?>
         
         <?php
             if($_SESSION['category'] == 'admin'){
