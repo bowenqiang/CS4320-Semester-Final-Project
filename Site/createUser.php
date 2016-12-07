@@ -44,6 +44,12 @@
       $emailErr = "Invalid email format";
       $hasErr = 1; 
     }
+
+  $query = "SELECT * FROM user_info WHERE Email='$email' ";
+  $result = mysqli_query($dbc,$query);
+  if(mysqli_num_rows($result) > 0)
+    $emailErr = "Email has been used, try another one";
+    $hasErr = 1;
   }
 #phone validation
   if(empty($_POST["phone"])) {
