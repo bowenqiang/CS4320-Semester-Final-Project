@@ -26,7 +26,7 @@
     $lNameErr = "Last Name is required";
     $hasErr = 1;
   } else {
-    $lName = test_input($_POST["fName"]);
+    $lName = test_input($_POST["lName"]);
     // check if name only contains letters and whitespace
     if (!preg_match("/^[a-zA-Z ]*$/",$lName)) {
       $lNameErr = "Only letters and white space allowed"; 
