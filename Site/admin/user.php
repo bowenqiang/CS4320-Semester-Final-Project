@@ -71,7 +71,7 @@ $result = mysqli_query($dbc, $query);
 			<h1>All users:</h1>
 			<form action="user.php" method="post">
 				<input type="text" name="ValueToSearch" placeholder="Value To Search"><br><br>
-				<input type="submit" name="search" value="Filter"><br><br>
+				<input type="submit" name="search" value="Search"><br><br>
 				<table class="table able-bordered" >
 					<tr>
 						<th><a href="user.php?sort=userid">user_id</a></th>
