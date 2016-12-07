@@ -30,7 +30,7 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 if(isset($_POST['search']))
 {
 	$ValueToSearch = $_POST['ValueToSearch'];
-	$query = "SELECT * From user_info WHERE CONCAT(UserName,AccountEmail) LIKE '%".$ValueToSearch."%'";
+	$query = "SELECT * From user_info WHERE CONCAT(UserName,AccountEmail,Category) LIKE '%".$ValueToSearch."%'";
 }else{
 	$query = "SELECT * From user_info";
 }
@@ -71,7 +71,7 @@ $result = mysqli_query($dbc, $query);
 			<h1>All users:</h1>
 			<form action="user.php" method="post">
 				<input type="text" name="ValueToSearch" placeholder="Value To Search"><br><br>
-				<input type="submit" name="search" value="Filter"><br><br>
+				<input type="submit" name="search" value="Search"><br><br>
 				<table class="table able-bordered" >
 					<tr>
 						<th><a href="user.php?sort=userid">user_id</a></th>
