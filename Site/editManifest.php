@@ -94,7 +94,10 @@
         //Modify .Json File
         $FullName = $FirstName . " " . $LastName;
         $manifestData->manifests->manifest->creator = $FullName;
+        $oldmask = umask(0);
         file_put_contents("../ManifestFiles/$mid.json", json_encode($manifestData, JSON_PRETTY_PRINT));
+//        chmod($destFilePath, 777);
+        umask($oldmask);
         //$JsonFile = htmlspecialchars($_POST['JsonFile']);
 //        if(strlen($JsonFile) > 255){
 //            echo "<script type='text/javascript'>alert('ERROR: JSON File URL cannot be > 255 chars')</script>";
@@ -190,10 +193,11 @@
 						<input id="publication" type="text" class="validate" name="publication" value="<?php echo "$publication" ?>">
 			    </div>
 
-					<div class="col s4">
-						<button type="submit" value="submit" class="waves-effect waves-light btn">Commit Edit</button>
-            <a href='browseManifests.php' class="waves-effect waves-light btn">Cancel</a>
-					</div>
+					<div class="col s5">
+						<button type="submit" value="submit" class="waves-effect waves-light btn">Commit</button>
+		<a href='browseManifests.php' class="waves-effect waves-light btn">Cancel</a>				
+
+	</div>
 				</form>
 
     </div>
