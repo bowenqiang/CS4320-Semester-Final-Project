@@ -8,9 +8,10 @@
 <nav class="indigo" role="navigation">
   <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">OCDX Repo - Group 6</a>
     <ul class="right hide-on-med-and-down">
-      <li><a href="https://github.com/JustinRenneke/CS4320-Semester-Final-Project/wiki">Git Hub</a></li>
+      <li><a href="https://github.com/OCDX/OCDX-Specification">OCDX Git Hub</a></li>
+      <li><a href="https://github.com/JustinRenneke/CS4320-Semester-Final-Project/wiki">Site Git Hub</a></li>
       <li><a href="../browseManifests.php">Search</a></li>
-        <li><a href="../addDataset.php">Upload</a></li>
+        <li><a href="../createManifest.php">Create</a></li>
         <?php
           if(!isset($_SESSION['username']) or $_SESSION['category'] != 'other'){
             echo '<li><a href="../createUser.php">Create Account</a></li>';
