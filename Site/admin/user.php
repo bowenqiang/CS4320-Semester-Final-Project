@@ -58,7 +58,7 @@ $result = mysqli_query($dbc, $query);
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>User Management .' | '.$site_title; ?></title>
+		<title>User Management</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<?php include('config/css.php'); ?>
 		<?php include('config/js.php'); ?>
