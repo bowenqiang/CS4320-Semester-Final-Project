@@ -30,7 +30,7 @@ if(!isset($_SESSION['username']) or $_SESSION['category'] != 'admin') {
 if(isset($_POST['search']))
 {
 	$ValueToSearch = $_POST['ValueToSearch'];
-	$query = "SELECT * From user_info WHERE CONCAT(UserName,AccountEmail) LIKE '%".$ValueToSearch."%'";
+	$query = "SELECT * From user_info WHERE CONCAT(UserName,AccountEmail,Category) LIKE '%".$ValueToSearch."%'";
 }else{
 	$query = "SELECT * From user_info";
 }
