@@ -46,15 +46,18 @@
             </div>
 		        <div class="col s4">
                <input name="searchOptions" type="radio" id="1" value='name' checked/>
-               <label for="1">Name</label>
+               <label for="1">Upload Name</label>
                <input name="searchOptions" type="radio" id="2" value='date'/>
                <label for="2">Date Added</label>
+               <input name="searchOptions" type="radio" id="3" value = 'last name'/>
+               <label for="3">Last Name</label>
             </div>
         </form>
 			  <table class="highlight">
         <thead>
           <tr>
-              <th style='width:65%' data-field="data">Data</th>
+              <th style='width:55%' data-field="data">Data</th>
+              <th style="width:10%" data-field="name">Uploader</th>
               <th style='width:10%' data-field="date">Date/Time</th>
               <th style='width:15%' data-field="contrib"></th>
               <th style="width:10%" data-field="download"></th>
@@ -69,6 +72,8 @@
                 $stmt = "SELECT MID, UploadTitle, UploadDate, UploadComment, JsonFile From manifest WHERE UploadTitle LIKE ?";
               } else if($radio =='date') {
                 $stmt = "SELECT MID, UploadTitle, UploadDate, UploadComment, JsonFile FROM manifest WHERE UploadDate LIKE ?";
+              } else if($radio =='last name') {
+                $stmt = "SELECT MID, UploadTitle, UploadDate, UploadComment, JsonFile FROM manifest WHERE /*Need  stmt for crossreference to person*/";
               }
               $search = "%{$_POST['search']}%";
               if($query = $dbc->prepare($stmt)) {
@@ -82,11 +87,11 @@
                   <td style='margin-left:2px'><b><?php echo "$title"; ?></b>
                     <p><?php echo "$comment"; ?></p>
                   </td>
+                  <td><?php echo "Uploader name here"; ?></td>
                   <td><?php echo "$date"; ?></td>
                   <td><a class='waves-effect waves-light btn' href="contribute.php?mid=<?php echo "$mid" ?>">Datasets</a></td>
                   <td><a class='waves-effect waves-light btn' href="editManifest.php?mid=<?php echo "$mid" ?>">Edit</a></td>
                   <td><a class='waves-effect waves-light btn' href='<?php echo "../ManifestFiles/$mid.json"?>' download>Download</a></td>
-<!--                  <td><a class='waves-effect waves-light btn' href="functions/download.php?id=<?php/* echo "$JsonFile" */?>">Download</a></td>-->
                 </tr>
           <?php
               }
