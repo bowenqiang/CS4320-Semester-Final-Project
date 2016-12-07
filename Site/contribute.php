@@ -65,7 +65,6 @@
             $destFilePath = $target_dir . '/' . $filecount . '.' . $fileExt;
 
             $upload -> moveFile($destFilePath); //call from upload.php
-            chmod($destFilePath, 777);
 
             $sql = "UPDATE manifest SET DataSet='$target_dir' WHERE MID='$mid'"; 
             if($result = mysqli_query($dbc, $sql)){
@@ -108,42 +107,11 @@
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
-<!--
-<style>
 
-   /* label focus color */
-   .input-field input[type=text]:focus + label {
-     color: #F0F000;
-   }
-   /* label underline focus color */
-   .input-field input[type=search]:focus {
-     border-bottom: 1px solid #F00FFF;
-   }
-   /* icon prefix focus color */
-   .input-field .prefix.active {
-     color: #00F0F0;
-   }
-	</style>
- -->
 
 <body class='indigo lighten-5'>
     <?php include(D_TEMPLATE.'/navigation.php'); ?>
-<!--  <nav class="indigo" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Contribute</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Git Hub</a></li>
-				<li><a href="browseManifests.php">Browse Manifests</a></li>
-				<li><a href="addDataset.php">addDataset</a></li>
-				<li><a href="login.php">login</a></li>
-         <li><input id="search"><i class="material-icons">search</i></li> 
-      </ul>
 
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>    -->
   <div class="section" id="index-banner">
     <div class="white z-depth-1 container" style='padding: 1% 1% 1% 1%;'>
       <br><br>
@@ -193,9 +161,6 @@
         </table>
               <h5>Would you like to contribute a dataset to this manifest?</h5>
       <form method="post" action="contribute.php" enctype="multipart/form-data">
-      <!-- <a class="btn-floating btn-large waves-effect waves-light teal lighten-2" name="add"><i class="material-icons">add</i></a> -->
-<!--        <input type="submit" name="add" value="add" class="btn-floating btn-large teal lighten-2">-->
-<!--      </form>-->
               
         <div class="row">
 <!--                        <form action="#">-->
@@ -223,29 +188,12 @@
 
     	<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
         <form method="post" action="">
-          <input type="submit" name="submit" value="submit" class="btn-floating btn-large yellow accent-4">
            <a href='browseManifests.php' class="btn-floating btn-large yellow accent-4">Cancel</a>
         </form>
       </div>
 
     </div>
   </div>
-
-  <?php
-//    if(isset($_POST['add'])){
-//      echo "<script type='text/javascript'>alert('Added File.')</script>";
-//    }
-    if (isset($_POST['submit'])) {
-      echo "<script type='text/javascript'>alert('Files Uploaded! Redirecting...')</script>";
-        echo "<script type='text/javascript'>window.location = 'browseManifests.php'</script>";
-    }
-    if (isset($_POST['rename'])) {
-      echo "<script type='text/javascript'>alert('rename selected file')</script>";
-    }
-    if (isset($_POST['remove'])) {
-      echo "<script>alert('delete from list')</script>";
-    }
-  ?>
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

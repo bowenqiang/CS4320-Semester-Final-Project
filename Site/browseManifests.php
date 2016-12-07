@@ -90,6 +90,7 @@
                   <td><?php echo "Uploader name here"; ?></td>
                   <td><?php echo "$date"; ?></td>
                   <td><a class='waves-effect waves-light btn' href="contribute.php?mid=<?php echo "$mid" ?>">Datasets</a></td>
+                    <td><a class='waves-effect waves-light btn' href="snc.php?mid=<?php echo "$mid" ?>">SNCs</a></td>
                   <td><a class='waves-effect waves-light btn' href="editManifest.php?mid=<?php echo "$mid" ?>">Edit</a></td>
                   <td><a class='waves-effect waves-light btn' href='<?php echo "../ManifestFiles/$mid.json"?>' download>Download</a></td>
                 </tr>
@@ -109,7 +110,7 @@
   <br><br>
 
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large yellow accent-4" href="addDataset.php">
+    <a class="btn-floating btn-large yellow accent-4" href="createManifest.php">
       <i class="large material-icons">add</i>
     </a>
   </div>
