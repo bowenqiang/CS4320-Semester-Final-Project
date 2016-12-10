@@ -5,7 +5,7 @@ session_start();
 include('config/connection.php');
 include('config/setup.php');
 if($_POST) {
-	$query="SELECT * FROM user_info WHERE AccountEmail='$_POST[email]' AND Hashword = '$_POST[password]'";
+	$query="SELECT * FROM user_info WHERE AccountEmail='$_POST[email]' AND Hashword = SHA1('$_POST[password]')";
 	//$query="SELECT * FROM users WHERE email='$_POST[email]' AND password = SHA1('$_POST[password]')";
 	$result=mysqli_query($dbc, $query);
 	if(mysqli_num_rows($result) == 1) {
